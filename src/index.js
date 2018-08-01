@@ -1,8 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import MyAwesomeReactComponent from './MyAwesomeReactComponent';
 
-const Index = () => {
-  return <div>Hello React!</div>;
-};
+const App = () => (
+  <MuiThemeProvider>
+    <MyAwesomeReactComponent />
+  </MuiThemeProvider>
+);
 
-ReactDOM.render(<Index />, document.getElementById("index"));
+ReactDOM.render(
+  <App />,
+  document.getElementById('index')
+);
