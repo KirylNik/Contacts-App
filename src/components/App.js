@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import ButtonAppBar from './header/AppHeader'
+import AppHeader from './header/AppHeader'
 import ButtonAddContact from './ButtonAddContact'
 import WindowAddContact from './WindowAddContact/index'
+import Grid from '@material-ui/core/Grid'
 
 export default class App extends Component {
     constructor(props) {
@@ -21,11 +22,17 @@ export default class App extends Component {
     render () {
         return (
             <div>
-                <ButtonAppBar />
-                <div onClick={this.hundlerButtonAddContact}>
-                    <ButtonAddContact />
-                </div>
-                <WindowAddContact isDisplay = {this.state.addContactWindowIsShow}/>
+                <Grid container spacing={24} justify="center">
+                    <Grid item xs={12}>
+                    <AppHeader />
+                    </Grid>
+                    <div onClick={this.hundlerButtonAddContact}>
+                        <ButtonAddContact />
+                    </div>
+                    <Grid item xs={6}>
+                    <WindowAddContact isDisplay = {this.state.addContactWindowIsShow}/>
+                    </Grid>
+                </Grid>
             </div>  
         )
     }

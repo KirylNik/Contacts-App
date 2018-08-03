@@ -11,8 +11,8 @@ const styles = theme => ({
   root: {
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
-    width: '600px',
-    height: '300px',
+    // width: '600px',
+    height: '300px'
   },
 });
 
