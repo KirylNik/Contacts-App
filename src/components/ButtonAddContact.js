@@ -1,18 +1,34 @@
 import React from 'react';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
-import { green400 } from 'material-ui/styles/colors';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
-const style = {
-  position: 'fixed',
-  right: '7%',
-  bottom: '7%'
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+    position: 'absolute',
+    right: '5%',
+    bottom: '5%',
+  },
+  extendedIcon: {
+    marginRight: theme.spacing.unit,
+  },
+});
+
+function ButtonAddContact(props) {
+  const { classes, action } = props;
+  return (
+    <div>
+      <Button action={action} variant="fab" color="secondary" aria-label="Add" className={classes.button}>
+        <AddIcon />
+      </Button>
+    </div>
+  );
+}
+
+ButtonAddContact.propTypes = {
+  classes: PropTypes.object.isRequired,
 };
 
-const ButtonAddContact = ({onClick}) => (
-    <FloatingActionButton style={style} backgroundColor={green400} onClick={onClick}>
-      <ContentAdd />
-    </FloatingActionButton>
-);
-
-export default ButtonAddContact;
+export default withStyles(styles)(ButtonAddContact);
