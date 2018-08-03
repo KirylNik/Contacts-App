@@ -2,16 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
-import AccountCircle from '@material-ui/icons/AccountCircle'
+import FieldsFillingName from './FieldsFillingName'
+import FieldsFillingPhone from './FieldsFillingPhone'
+import FieldsSelectDate from './FieldsSelectDate'
 
 
 const styles = theme => ({
   root: {
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
-    width: '300px',
-    height: '300px'
+    width: '600px',
+    height: '300px',
   },
 });
 
@@ -24,7 +25,11 @@ function WindowAddContact(props) {
     
     <div>
       <Paper className={classes.root} elevation={10}>
-        <AccountCircle style={{ fontSize: 40 }}/>
+      <form className={classes.container} noValidate autoComplete="off">
+        <FieldsFillingName />
+        <FieldsFillingPhone />
+        <FieldsSelectDate />
+      </form>
       </Paper>
     </div>
   );

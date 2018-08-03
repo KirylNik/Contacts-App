@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ButtonAppBar from './header/AppHeader'
 import ButtonAddContact from './ButtonAddContact'
-import WindowAddContact from './WindowAddContact'
+import WindowAddContact from './WindowAddContact/index'
 
 export default class App extends Component {
     constructor(props) {
