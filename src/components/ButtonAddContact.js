@@ -17,10 +17,10 @@ const styles = theme => ({
 });
 
 function ButtonAddContact(props) {
-  const { classes, action } = props;
+  const { classes } = props;
   return (
     <div>
-      <Button action={action} variant="fab" color="secondary" aria-label="Add" className={classes.button}>
+      <Button variant="fab" color="primary" aria-label="Add" className={classes.button}>
         <AddIcon />
       </Button>
     </div>

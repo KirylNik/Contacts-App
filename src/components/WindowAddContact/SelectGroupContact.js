@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -13,7 +12,8 @@ const styles = theme => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-      },
+        margin: '0px',
+    },
     textField: {
         margin: '0px',
     },
@@ -21,55 +21,42 @@ const styles = theme => ({
         margin: '0px',
     },
     selectEmpty: {
-        margin: '0px',
+        marginRight: theme.spacing.unit * 4
     },
     formControl: {
         margin: '0px',
-        paddingLeft: theme.spacing.unit * 2
     },
-    botton: {
-        padding: '0px !important',
+    firstButton: {
+        marginLeft: theme.spacing.unit * 4
     },
-    leftBotton: {
-        padding: '0px !important',
-        marginLeft: theme.spacing.unit * 3
-    }
 });
 
-function FieldsFillingPhone(props) {
+function SelectGroupContact(props) {
     const { classes } = props;
 
     return (
         <div className={classes.container}>
-            <Grid container spacing={16} alignItems="flex-end">
-                <Grid item xs={6}>
-                    <TextField
-                        id="phone-number-input"
-                        label="Phone number"
-                        className={classes.phoneField}
-                        margin="normal"
-                        fullWidth={true}
-                    />
-                </Grid>
-                <Grid item xs={3}>
-                    <FormControl className={classes.formControl} fullWidth={true}>
+            <Grid container spacing={8} alignItems="flex-end">
+                <Grid item xs={4}>
+                    <FormControl className={classes.formControl}>
                         <Select
                             // value={this.state.age}
                             // onChange={this.handleChange}
                             displayEmpty
-                            name="phone"
+                            fullWidth={true}
+                            name="group"
                             className={classes.selectEmpty}
                         >
-                            <MenuItem value={'Mobile'}>Mobile</MenuItem>
-                            <MenuItem value={'Home'}>Home</MenuItem>
                             <MenuItem value={'Work'}>Work</MenuItem>
+                            <MenuItem value={'Family'}>Family</MenuItem>
+                            <MenuItem value={'Frends'}>Frends</MenuItem>
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid item className={classes.leftBotton} item xs={1}>
+                <Grid item item xs={2} className={classes.firstButton}>
                     <ButtonDelete />
                 </Grid>
-                <Grid item className={classes.botton} item xs={1}>
+                <Grid item xs={2}>
                     <ButtonAdd />
                 </Grid>
             </Grid>
@@ -77,8 +64,8 @@ function FieldsFillingPhone(props) {
     )
 }
 
-FieldsFillingPhone.propTypes = {
+SelectGroupContact.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(FieldsFillingPhone);
+export default withStyles(styles)(SelectGroupContact);

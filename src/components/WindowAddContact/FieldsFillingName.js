@@ -3,51 +3,66 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const styles = theme => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        margin: theme.spacing.unit
       },
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        width: 150,
+        marginTop: '0px',
+        marginBottom: '0px',
+        width: '100%',
     },
+    gridTextField: {
+        paddingLeft: '10px'
+    }
 });
 
 function FieldsFillingName(props) {
-    const { classes } = props;
+    const { classes,
+            valueFirstName,
+            valueMiddleName,
+            valueLastName,
+            hundleChange
+          } = props
 
     return (
         <div className={classes.container}>
-            <Grid container spacing={8} alignItems="flex-end">
-                <Grid item>
-                    <AccountCircle style={{fontSize: 50}}/>
-                </Grid>
-                <Grid item>
+            <Grid container spacing={16} alignItems="flex-end">
+                <Grid item xs={4} className={classes.gridTextField}>
                     <TextField
+                        required
                         id="first-name-input"
                         label="First Name"
                         className={classes.textField}
+                        value={valueFirstName}
+                        onChange={hundleChange('firstName')}
                         margin="normal"
+                        fullWidth={true}
                     />
                 </Grid>
-                <Grid item>
+                <Grid item xs={4} className={classes.gridTextField}>
                     <TextField
+                        required
                         id="middle-name-input"
                         label="Middle name"
+                        value={valueMiddleName}
+                        onChange={hundleChange('middleName')}
                         className={classes.textField}
                         margin="normal"
                     />
                 </Grid>
-                <Grid item>
+                <Grid item xs={4} className={classes.gridTextField}>
                     <TextField
+                        required
                         id="last-name-input"
                         label="Last name"
                         className={classes.textField}
+                        value={valueLastName}
+                        onChange={hundleChange('lastName')}
                         margin="normal"
                     />
                 </Grid>
