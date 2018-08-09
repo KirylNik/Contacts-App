@@ -23,23 +23,13 @@ const styles = theme => ({
   label: {
       marginRight: theme.spacing.unit * 2,
   },
-});
+})
 
-class SelectGender extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            value: 'female',
-        }
-        this.handleChange = this.handleChange.bind(this)
-    }
-
-  handleChange (event) {
-    this.setState({ value: event.target.value });
-  };
-
-  render() {
-    const { classes } = this.props;
+function SelectGender(props) {
+    const { classes,
+            gender,
+            handleChange
+          } = props
 
     return (
       <div className={classes.root}>
@@ -53,10 +43,10 @@ class SelectGender extends React.Component {
                 <FormControl component="fieldset" className={classes.formControl}>
                     <RadioGroup
                         aria-label="Gender"
-                        name="gender1"
+                        name="gender"
                         className={classes.group}
-                        value={this.state.value}
-                        onChange={this.handleChange}
+                        value={gender}
+                        onChange={handleChange('gender')}
                     >
                         <FormControlLabel value="female" control={<Radio />} label="Female" />
                         <FormControlLabel value="male" control={<Radio />} label="Male" />
@@ -65,12 +55,11 @@ class SelectGender extends React.Component {
             </Grid>
         </Grid>
       </div>
-    );
-  }
+    )
 }
 
 SelectGender.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(SelectGender);
+export default withStyles(styles)(SelectGender)

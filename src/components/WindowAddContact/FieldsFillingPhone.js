@@ -37,16 +37,23 @@ const styles = theme => ({
 });
 
 function FieldsFillingPhone(props) {
-    const { classes } = props;
+    const { classes,
+            phoneNumber,
+            phoneNumberClass,
+            handleChange
+          } = props
 
     return (
         <div className={classes.container}>
             <Grid container spacing={16} alignItems="flex-end">
                 <Grid item xs={6}>
                     <TextField
+                        required
                         id="phone-number-input"
                         label="Phone number"
                         className={classes.phoneField}
+                        value={phoneNumber}
+                        onChange={handleChange('phoneNumber')}
                         margin="normal"
                         fullWidth={true}
                     />
@@ -54,11 +61,12 @@ function FieldsFillingPhone(props) {
                 <Grid item xs={3}>
                     <FormControl className={classes.formControl} fullWidth={true}>
                         <Select
-                            // value={this.state.age}
-                            // onChange={this.handleChange}
+                            required
                             displayEmpty
                             name="phone"
                             className={classes.selectEmpty}
+                            value={phoneNumberClass}
+                            onChange={handleChange('phoneNumberClass')}
                         >
                             <MenuItem value={'Mobile'}>Mobile</MenuItem>
                             <MenuItem value={'Home'}>Home</MenuItem>

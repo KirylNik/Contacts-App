@@ -32,7 +32,10 @@ const styles = theme => ({
 });
 
 function SelectGroupContact(props) {
-    const { classes } = props;
+    const { classes,
+            group,
+            handleChange
+          } = props;
 
     return (
         <div className={classes.container}>
@@ -40,12 +43,12 @@ function SelectGroupContact(props) {
                 <Grid item xs={4}>
                     <FormControl className={classes.formControl}>
                         <Select
-                            // value={this.state.age}
-                            // onChange={this.handleChange}
                             displayEmpty
                             fullWidth={true}
                             name="group"
                             className={classes.selectEmpty}
+                            value={group}
+                            onChange={handleChange('group')}
                         >
                             <MenuItem value={'Work'}>Work</MenuItem>
                             <MenuItem value={'Family'}>Family</MenuItem>

@@ -26,7 +26,7 @@ function FieldsFillingName(props) {
             valueFirstName,
             valueMiddleName,
             valueLastName,
-            hundleChange
+            handleChange
           } = props
 
     return (
@@ -39,7 +39,7 @@ function FieldsFillingName(props) {
                         label="First Name"
                         className={classes.textField}
                         value={valueFirstName}
-                        onChange={hundleChange('firstName')}
+                        onChange={handleChange('firstName')}
                         margin="normal"
                         fullWidth={true}
                     />
@@ -50,7 +50,7 @@ function FieldsFillingName(props) {
                         id="middle-name-input"
                         label="Middle name"
                         value={valueMiddleName}
-                        onChange={hundleChange('middleName')}
+                        onChange={handleChange('middleName')}
                         className={classes.textField}
                         margin="normal"
                     />
@@ -62,7 +62,7 @@ function FieldsFillingName(props) {
                         label="Last name"
                         className={classes.textField}
                         value={valueLastName}
-                        onChange={hundleChange('lastName')}
+                        onChange={handleChange('lastName')}
                         margin="normal"
                     />
                 </Grid>

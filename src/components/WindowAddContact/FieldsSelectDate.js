@@ -14,17 +14,22 @@ const styles = theme => ({
 })
 
 function FieldsSelectDate(props) {
-  const { classes } = props;
+  const { classes,
+          dateOfBirth,
+          handleChange,
+        } = props;
 
   return (
     <div className={classes.container}>
         <TextField
+            required
             id="date"
             label="Date of birth"
             type="date"
-            defaultValue="2018-01-21"
             fullWidth={true}
             className={classes.textField}
+            value={dateOfBirth}
+            onChange={handleChange('dateOfBirth')}
             InputLabelProps={{
             shrink: true,
             }}

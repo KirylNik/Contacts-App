@@ -6,12 +6,12 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Search from '@material-ui/icons/Search';
-import Grid from '@material-ui/core/Grid';
-import green from '@material-ui/core/colors/green';
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
+import FormControl from '@material-ui/core/FormControl'
+import Search from '@material-ui/icons/Search'
+import Grid from '@material-ui/core/Grid'
+import green from '@material-ui/core/colors/green'
 
 const colorSearchFiled = green[300]
 const styles = theme => ({

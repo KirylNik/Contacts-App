@@ -9,7 +9,7 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications'
-import Grey from '@material-ui/core/colors/Grey'
+import Grey from '@material-ui/core/colors/grey'
 
 const BACKGROUND = Grey[300]
 

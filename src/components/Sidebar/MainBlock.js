@@ -11,7 +11,7 @@ import ContactsIcon from '@material-ui/icons/Contacts';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
-import Grey from '@material-ui/core/colors/Grey'
+import Grey from '@material-ui/core/colors/grey'
 
 const BACKGROUND = Grey[300]
 const styles = theme => ({
