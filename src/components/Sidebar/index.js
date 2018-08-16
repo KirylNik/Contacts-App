@@ -1,9 +1,10 @@
 import SettingsBlock from './SettingsBlock'
 import MainBlock from './MainBlock'
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
+import {connect} from 'react-redux'
 
 const styles = theme => ({
     sidebarItem: {
@@ -13,11 +14,11 @@ const styles = theme => ({
         backgroundColor: "lightgray",
         height: "100%",
     }
-});
+})
 
 function Sidebar(props) {
-    const { classes, isShow} = props;
-    if (!isShow) return null
+    const { classes, sidebarState } = props;
+    if (!sidebarState) return null
 
         return (
             <div className={classes.root}>
@@ -32,8 +33,9 @@ function Sidebar(props) {
 }
 
 Sidebar.propTypes = {
-  classes: PropTypes.object.isRequired,
-  isShow: PropTypes.bool.isRequired
-};
+  classes: PropTypes.object.isRequired
+}
 
-export default withStyles(styles)(Sidebar);
+export default connect((state) => ({
+    sidebarState : state.sidebarState
+}))(withStyles(styles)(Sidebar))

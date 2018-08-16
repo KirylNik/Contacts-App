@@ -1,17 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import ContactsIcon from '@material-ui/icons/Contacts';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import Collapse from '@material-ui/core/Collapse'
+import StarBorderIcon from '@material-ui/icons/StarBorder'
+import ContactsIcon from '@material-ui/icons/Contacts'
+import ExpandLess from '@material-ui/icons/ExpandLess'
+import ExpandMore from '@material-ui/icons/ExpandMore'
 import Grey from '@material-ui/core/colors/grey'
+import ItemListGroup from './ItemListGroup'
+import {sortContactsByFavorites, getListAllContacts} from '../../AC'
+import {connect} from 'react-redux'
 
 const BACKGROUND = Grey[300]
 const styles = theme => ({
@@ -27,30 +29,48 @@ const styles = theme => ({
 
 class MainBlock extends React.Component {
     constructor(props) {
-        super(props)
-        this.state = {
-            open: false,
-        }
-        this.handleClick = this.handleClick.bind(this)
+      super(props)
+      this.state = {
+          open: false,
+      }
+      this.getListGroups = this.getListGroups.bind(this)
+      this.handlerButtonContacts = this.handlerButtonContacts.bind(this)
+      this.handlerButtonFavorites = this.handlerButtonFavorites.bind(this)
+      this.handleClick = this.handleClick.bind(this)
     }
+
+  handlerButtonFavorites () {
+    const {sortContactsByFavorites} = this.props
+    sortContactsByFavorites()
+  }
+
+  handlerButtonContacts () {
+    const {getListAllContacts} = this.props
+    getListAllContacts()
+  }
 
   handleClick () {
     this.setState(state => ({ open: !state.open }));
-  };
+  }
+
+  getListGroups () {
+    return <ItemListGroup itemName={'Home'} countContacts={2}/>
+  }
 
   render() {
-    const { classes} = this.props;
+    const {classes} = this.props;
+    const listGroups = this.getListGroups()
 
     return (
       <div className={classes.root}>
         <List component="nav">
-          <ListItem button>
+          <ListItem button onClick={this.handlerButtonContacts}>
             <ListItemIcon>
               <ContactsIcon />
             </ListItemIcon>
             <ListItemText inset primary="Contacts" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={this.handlerButtonFavorites}>
             <ListItemIcon>
               <StarBorderIcon />
             </ListItemIcon>
@@ -62,22 +82,18 @@ class MainBlock extends React.Component {
           </ListItem>
           <Collapse in={this.state.open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText inset primary="Starred" />
-              </ListItem>
+              {listGroups}
             </List>
           </Collapse>
         </List>
       </div>
-    );
+    )
   }
 }
 
 MainBlock.propTypes = {
   classes: PropTypes.object.isRequired
-};
+}
 
-export default withStyles(styles)(MainBlock);
+export default connect(null,
+  { sortContactsByFavorites, getListAllContacts })(withStyles(styles)(MainBlock))

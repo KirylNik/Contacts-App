@@ -36,24 +36,46 @@ const styles = theme => ({
 class WindowContactViewing extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-        }
+        this.handlerButtonEdit = this.handlerButtonEdit.bind(this)
+        this.handlerButtonFavorite = this.handlerButtonFavorite.bind(this)
+    }
 
+    handlerButtonEdit (e) {
+        const { showWindowAddContact } = this.props
+        const idContact = e.currentTarget.dataset.idContact
+        showWindowAddContact(idContact)
+    }
+
+    handlerButtonFavorite (e) {
+        const { changeContactFavorite } = this.props
+        const idContact = e.currentTarget.dataset.idContact
+        changeContactFavorite(idContact)
     }
 
     render() {
-        const { classes, isShow, idContact, contacts, closeWindowContactInfo} = this.props;
-        if (!isShow) return null
+        const { classes,
+                isShow,
+                idContact,
+                contacts,
+                closeWindowContactInfo,
+                deleteContact
+              } = this.props
 
+        if (!isShow) return null
         const arrContact = contacts.filter(item => item.id === idContact)
         const objContact = arrContact[0]
-
         return (
             <div>
                 <Paper className={classes.root} elevation={10}>
                     <Header firstName={objContact.firstName}
                             lastName={objContact.lastName}
-                            closeThisWindow={closeWindowContactInfo}/>
+                            id={objContact.id}
+                            isFavorite={objContact.isFavorite}
+                            closeThisWindow={closeWindowContactInfo}
+                            deleteContact={deleteContact}
+                            handlerButtonEdit={this.handlerButtonEdit}
+                            handlerButtonFavorite={this.handlerButtonFavorite}
+                    />
                     <Grid container spacing={16} alignItems="center" className={classes.gridContainer}>
                         <Grid item xs={12} className={classes.userInfoTitleContainer}>
                             <Typography className={classes.userInfoTitle} variant="title">

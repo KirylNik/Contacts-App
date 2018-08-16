@@ -4,11 +4,11 @@ import { withStyles } from '@material-ui/core/styles'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
-import StarBorder from '@material-ui/icons/StarBorder'
 import Delete from '@material-ui/icons/Delete'
 import Edit from '@material-ui/icons/Edit'
 import Cancel from '@material-ui/icons/Cancel'
 import Grey from '@material-ui/core/colors/grey'
+import StarIcon from '../icons/StarIcon'
 
 const headerBackground = Grey[300]
 const styles = theme => ({
@@ -31,7 +31,12 @@ function Header(props) {
     const { classes,
             firstName,
             lastName,
+            id,
+            isFavorite,
             closeThisWindow,
+            deleteContact,
+            handlerButtonEdit,
+            handlerButtonFavorite
         } = props
 
     return (
@@ -40,13 +45,22 @@ function Header(props) {
             <Typography className={classes.headerTitle} variant="title">
                 {`${firstName} ${lastName}`}
             </Typography>
-            <IconButton className={classes.buttonLeft}>
-                <StarBorder />
+            <IconButton className={classes.buttonLeft}
+                        onClick={handlerButtonFavorite}
+                        data-id-contact={id}
+            >
+                <StarIcon isActive={isFavorite}/>
             </IconButton>
-            <IconButton className={classes.button}>
+            <IconButton className={classes.button}
+                        onClick={handlerButtonEdit}
+                        data-id-contact={id}    
+            >
                 <Edit />
             </IconButton>
-            <IconButton className={classes.button}>
+            <IconButton className={classes.button}
+                        onClick={deleteContact}
+                        data-id-contact={id}
+            >
                 <Delete />
             </IconButton>
             <IconButton className={classes.button} onClick={closeThisWindow}>

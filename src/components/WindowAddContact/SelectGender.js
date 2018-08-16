@@ -48,8 +48,8 @@ function SelectGender(props) {
                         value={gender}
                         onChange={handleChange('gender')}
                     >
-                        <FormControlLabel value="female" control={<Radio />} label="Female" />
-                        <FormControlLabel value="male" control={<Radio />} label="Male" />
+                        <FormControlLabel value="Female" control={<Radio />} label="Female" />
+                        <FormControlLabel value="Male" control={<Radio />} label="Male" />
                     </RadioGroup>
                 </FormControl>
             </Grid>

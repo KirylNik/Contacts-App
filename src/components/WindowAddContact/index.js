@@ -16,7 +16,7 @@ import People from '@material-ui/icons/People'
 import Grey from '@material-ui/core/colors/grey'
 import Button from '@material-ui/core/Button'
 import {connect} from 'react-redux'
-import {addContact} from '../../AC'
+import {addContact, updateContact} from '../../AC'
 
 const headerBackground = Grey[300]
 const headerTextColor = Grey[500]
@@ -71,7 +71,17 @@ const styles = theme => ({
 class WindowAddContact extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
+        this.state = this.setDefaultState()
+        this.hideThisWindows = this.props.handlerClose
+        this.showWindowContactInfo = this.props.showWindowContactInfo
+        this.handlerButtonCancel = this.handlerButtonCancel.bind(this)
+        this.setDefaultState = this.setDefaultState.bind(this)
+        this.handleFormFields = this.handleFormFields.bind(this)
+        this.handlerButtonSave = this.handlerButtonSave.bind(this)
+    }
+
+    setDefaultState () {
+        return {
             id: Date.now(),
             firstName: '',
             middleName: '',
@@ -79,13 +89,32 @@ class WindowAddContact extends React.Component {
             phoneNumber: '',
             phoneNumberClass: '',
             dateOfBirth: '',
-            contactGroup: 'none',
-            gender: 'male'
+            group: 'none',
+            gender: 'Male',
+            nowUpdate: false
         }
-        this.hideThisWindows = this.props.handlerClose
-        this.showWindowContactInfo = this.props.showWindowContactInfo
-        this.handleFormFields = this.handleFormFields.bind(this)
-        this.handlerButtonSave = this.handlerButtonSave.bind(this)
+    }
+
+    componentWillReceiveProps (props) {
+        const { isShow, idEditableContact, contacts} = props
+
+        if (idEditableContact && isShow) {
+            const arrContact = contacts.filter(item => item.id == idEditableContact)
+            const objContact = arrContact[0]
+
+            this.setState({
+                id: objContact.id,
+                firstName:  objContact.firstName,
+                middleName: objContact.middleName,
+                lastName: objContact.lastName,
+                phoneNumber: this.getNumberPhone(objContact.phoneNumberClass),
+                phoneNumberClass: this.getClassNumberPhone(objContact.phoneNumberClass),
+                dateOfBirth: objContact.dateOfBirth,
+                group: this.getTypeGroup(objContact.group),
+                gender: objContact.gender,
+                nowUpdate: true
+            })
+        }
     }
 
     handleFormFields (name) {
@@ -96,18 +125,59 @@ class WindowAddContact extends React.Component {
                 })
             }
         )
-    } 
+    }
+
+    handlerButtonCancel () {
+        this.hideThisWindows()
+        this.setState(this.setDefaultState())
+    }
 
     handlerButtonSave () {
-        const {addContact} = this.props
+        const {addContact, updateContact} = this.props
         const objContact = Object.assign({}, this.state)
-        addContact(objContact)
+        if (this.state.nowUpdate) {
+            updateContact(objContact)
+        } else {
+            addContact(objContact)
+        }
         this.hideThisWindows()
         this.showWindowContactInfo(this.state.id)
+        this.setState(this.setDefaultState())
+    }
+
+    getTypeGroup (groupObj) {
+
+        if (groupObj.work) {
+            return 'Work'
+        } else if (groupObj.family) {
+            return 'Family'
+        } else {
+            return 'Frends'
+        }
+    }
+    
+    getNumberPhone (phoneObj) {
+        if (phoneObj.mobile) {
+            return phoneObj.mobile
+        } else if (phoneObj.home) {
+            return phoneObj.home
+        } else {
+            return phoneObj.work
+        }
+    }
+
+    getClassNumberPhone (phoneObj) {
+        if (phoneObj.mobile) {
+            return 'Mobile'
+        } else if (phoneObj.home) {
+            return 'Home'
+        } else {
+            return 'Work'
+        }
     }
 
     render() {
-        const { classes, isShow} = this.props;
+        const { classes, isShow, idEditableContact, contacts } = this.props;
         if (!isShow) return null
 
         return (
@@ -155,7 +225,7 @@ class WindowAddContact extends React.Component {
                             </Grid>
                             <Grid item xs={4} className={classes.SelectGroupContact}>
                                 <SelectGroupContact
-                                    contactGroup={this.state.contactGroup}
+                                    group={this.state.group}
                                     handleChange={this.handleFormFields}
                                 />
                             </Grid>
@@ -166,7 +236,7 @@ class WindowAddContact extends React.Component {
                                 />
                             </Grid>
                             <Grid item xs={12} container justify="flex-end" className={classes.fields}>
-                                <Button color="secondary" className={classes.button} onClick={this.hideThisWindows}>
+                                <Button color="secondary" className={classes.button} onClick={this.handlerButtonCancel}>
                                     Cancel
                                 </Button>
                                 <Button color="secondary" className={classes.button} onClick={this.handlerButtonSave}>
@@ -186,4 +256,6 @@ WindowAddContact.propTypes = {
     addContact: PropTypes.func.isRequired
 }
 
-export default connect(null, { addContact })(withStyles(styles)(WindowAddContact))
+export default connect((state) => ({
+    contacts: state.contacts
+}), { addContact, updateContact })(withStyles(styles)(WindowAddContact))

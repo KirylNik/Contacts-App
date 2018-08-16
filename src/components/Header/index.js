@@ -12,6 +12,8 @@ import FormControl from '@material-ui/core/FormControl'
 import Search from '@material-ui/icons/Search'
 import Grid from '@material-ui/core/Grid'
 import green from '@material-ui/core/colors/green'
+import {connect} from 'react-redux'
+import { changeStateIsOpenSidebar } from '../../AC'
 
 const colorSearchFiled = green[300]
 const styles = theme => ({
@@ -69,59 +71,74 @@ const styles = theme => ({
 	},
 })
 
-function AppHeader(props) {
-    const { classes, handlerSidebar} = props;
+class AppHeader extends React.Component {
+	constructor (props) {
+		super(props)
+		this.hundlerShowSidebar = this.hundlerShowSidebar.bind(this)
+	}
+
+	hundlerShowSidebar () {
+        const {changeStateIsOpenSidebar} = this.props
+        changeStateIsOpenSidebar()
+    }
 	
-	return (
-		<div className={classes.root}>
-			<AppBar position="static">
-				<Toolbar>
-					<Grid container spacing={24} alignItems="center">
-						<Grid item xs={1}></Grid>
-						<Grid item xs={2} className={classes.sectionMenu}>
-							<div onClick={handlerSidebar}>
-								<IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-									<MenuIcon />
-								</IconButton>
-							</div>
-							<Typography variant="title" color="inherit" className={classes.flex}>
-								Contacts
-							</Typography>
-						</Grid>
-						<Grid item xs={4}>
-							<div className={classes.searchBox}>
-								<Search className={classes.searchIcon}/>
-								<FormControl className={classes.searchForm}>
-									<InputLabel
-										FormLabelClasses={{
-											root: classes.cssLabel,
-											focused: classes.cssFocused,
-										}}
-										htmlFor="field-search-contacts"
+	render () {
+		const { classes, handlerSidebar} = this.props
+
+		return (
+			<div className={classes.root}>
+				<AppBar position="static">
+					<Toolbar>
+						<Grid container spacing={24} alignItems="center">
+							<Grid item xs={1}></Grid>
+							<Grid item xs={2} className={classes.sectionMenu}>
+								<div onClick={handlerSidebar}>
+									<IconButton className={classes.menuButton}
+												color="inherit"
+												aria-label="Menu"
+												onClick={this.hundlerShowSidebar}
 									>
-										Search
-									</InputLabel>
-									<Input
-										classes={{
-											underline: classes.cssUnderline,
-											root: classes.cssInputSearch,
-											focused: classes.cssFocused,
-										}}
-										id="field-search-contacts"
-									/>
-								</FormControl>
-							</div>
+										<MenuIcon />
+									</IconButton>
+								</div>
+								<Typography variant="title" color="inherit" className={classes.flex}>
+									Contacts
+								</Typography>
+							</Grid>
+							<Grid item xs={4}>
+								<div className={classes.searchBox}>
+									<Search className={classes.searchIcon}/>
+									<FormControl className={classes.searchForm}>
+										<InputLabel
+											FormLabelClasses={{
+												root: classes.cssLabel,
+												focused: classes.cssFocused,
+											}}
+											htmlFor="field-search-contacts"
+										>
+											Search
+										</InputLabel>
+										<Input
+											classes={{
+												underline: classes.cssUnderline,
+												root: classes.cssInputSearch,
+												focused: classes.cssFocused,
+											}}
+											id="field-search-contacts"
+										/>
+									</FormControl>
+								</div>
+							</Grid>
 						</Grid>
-					</Grid>
-				</Toolbar>
-			</AppBar>
-		</div>
-	)
+					</Toolbar>
+				</AppBar>
+			</div>
+		)
+	}
 }
 
 AppHeader.propTypes = {
-  classes: PropTypes.object.isRequired,
-  handlerSidebar: PropTypes.func.isRequired
+  classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(AppHeader)
+export default connect(null, { changeStateIsOpenSidebar })(withStyles(styles)(AppHeader))

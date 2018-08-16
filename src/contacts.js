@@ -4,7 +4,7 @@ export const contacts = [
         firstName:"Kiryl",
         middleName:"Anatolevich",
         lastName:"Nikalaichuk",
-        dateOfBirth: "1991/08/03",
+        dateOfBirth: "1991-08-03",
         gender: "Male",
         group:{
             work: false,
@@ -15,14 +15,15 @@ export const contacts = [
             mobile: '+375298667001',
             home: false,
             work: false
-        }
+        },
+        isFavorite: false
     },
     {
         id: 5464356456,
         firstName:"Alexey",
         middleName:"Ivanovich",
         lastName:"Kahan",
-        dateOfBirth: "1994/01/01",
+        dateOfBirth: "1994-01-01",
         gender: "Male",
         group:{
             work: true,
@@ -33,14 +34,15 @@ export const contacts = [
             mobile: '+375297872759',
             home: false,
             work: false
-        }
+        },
+        isFavorite: false
     },
     {
         id: 6576465466,
         firstName:"Igor",
         middleName:"Ivanovich",
         lastName:"Obuhovski",
-        dateOfBirth: "1991/11/19",
+        dateOfBirth: "1991-11-19",
         gender: "Male",
         group:{
             work: true,
@@ -51,6 +53,7 @@ export const contacts = [
             mobile: '+375298885367',
             home: false,
             work: false
-        }
+        },
+        isFavorite: false
     }
 ]
