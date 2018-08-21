@@ -31,5 +31,12 @@ module.exports = {
        }
     ]
   },
+  devServer: {
+    proxy: {
+        '/**': {
+            target: 'http://localhost:8086/',
+        },
+    }
+  },
   plugins: [htmlWebpackPlugin]
 };

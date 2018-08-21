@@ -73,7 +73,7 @@ class WindowAddContact extends React.Component {
         super(props)
         this.state = this.setDefaultState()
         this.hideThisWindows = this.props.handlerClose
-        this.showWindowContactInfo = this.props.showWindowContactInfo
+        this.getObjectContact = this.getObjectContact.bind(this)
         this.handlerButtonCancel = this.handlerButtonCancel.bind(this)
         this.setDefaultState = this.setDefaultState.bind(this)
         this.handleFormFields = this.handleFormFields.bind(this)
@@ -82,15 +82,16 @@ class WindowAddContact extends React.Component {
 
     setDefaultState () {
         return {
-            id: Date.now(),
+            id: null,
             firstName: '',
             middleName: '',
             lastName: '',
             phoneNumber: '',
             phoneNumberClass: '',
-            dateOfBirth: '',
+            birhtDate: '',
             group: 'none',
             gender: 'Male',
+            favourite: false,
             nowUpdate: false
         }
     }
@@ -101,17 +102,17 @@ class WindowAddContact extends React.Component {
         if (idEditableContact && isShow) {
             const arrContact = contacts.filter(item => item.id == idEditableContact)
             const objContact = arrContact[0]
-
             this.setState({
                 id: objContact.id,
                 firstName:  objContact.firstName,
                 middleName: objContact.middleName,
                 lastName: objContact.lastName,
-                phoneNumber: this.getNumberPhone(objContact.phoneNumberClass),
-                phoneNumberClass: this.getClassNumberPhone(objContact.phoneNumberClass),
-                dateOfBirth: objContact.dateOfBirth,
+                phoneNumber: this.getNumberPhone(objContact.phones),
+                phoneNumberClass: this.getClassNumberPhone(objContact.phones),
+                birhtDate: objContact.birhtDate,
                 group: this.getTypeGroup(objContact.group),
                 gender: objContact.gender,
+                favourite: objContact.favourite,
                 nowUpdate: true
             })
         }
@@ -132,52 +133,52 @@ class WindowAddContact extends React.Component {
         this.setState(this.setDefaultState())
     }
 
+    getObjectContact () {
+        const objContact = {}
+
+        objContact.id = this.state.id
+        objContact.firstName = this.state.firstName
+        objContact.middleName = this.state.middleName
+        objContact.lastName = this.state.lastName
+        objContact.gender = this.state.gender
+        objContact.favourite = this.state.favourite
+        objContact.group = [this.state.group]
+        objContact.phones = [{
+            type: this.state.phoneNumberClass,
+            number: this.state.phoneNumber
+        }]
+        objContact.birhtDate = Date.parse(this.state.dateOfBirth)
+
+        return objContact
+    }
+
     handlerButtonSave () {
+        console.log(this.state.nowUpdate)
         const {addContact, updateContact} = this.props
-        const objContact = Object.assign({}, this.state)
+        const objContact = this.getObjectContact()
         if (this.state.nowUpdate) {
             updateContact(objContact)
         } else {
             addContact(objContact)
         }
         this.hideThisWindows()
-        this.showWindowContactInfo(this.state.id)
         this.setState(this.setDefaultState())
     }
 
-    getTypeGroup (groupObj) {
-
-        if (groupObj.work) {
-            return 'Work'
-        } else if (groupObj.family) {
-            return 'Family'
-        } else {
-            return 'Frends'
-        }
+    getTypeGroup (groupArr) {
+        return 'Friends'
     }
     
-    getNumberPhone (phoneObj) {
-        if (phoneObj.mobile) {
-            return phoneObj.mobile
-        } else if (phoneObj.home) {
-            return phoneObj.home
-        } else {
-            return phoneObj.work
-        }
+    getNumberPhone (phonesArr) {
+        return phonesArr[0].number
     }
 
-    getClassNumberPhone (phoneObj) {
-        if (phoneObj.mobile) {
-            return 'Mobile'
-        } else if (phoneObj.home) {
-            return 'Home'
-        } else {
-            return 'Work'
-        }
+    getClassNumberPhone (phonesArr) {
+        return phonesArr[0].type
     }
 
     render() {
-        const { classes, isShow, idEditableContact, contacts } = this.props;
+        const { classes, isShow } = this.props;
         if (!isShow) return null
 
         return (
@@ -196,7 +197,7 @@ class WindowAddContact extends React.Component {
                             <Grid item xs={11} className={classes.fields}>
                                 <FieldsFillingName
                                     valueFirstName={this.state.firstName}
-                                    valueMiddleName={this.state.middleName}
+                                    valuemiddleName={this.state.middleName}
                                     valueLastName={this.state.lastName}
                                     handleChange={this.handleFormFields}
                                 />
@@ -216,7 +217,7 @@ class WindowAddContact extends React.Component {
                             </Grid>
                             <Grid item xs={11} className={classes.fields}>
                                 <FieldsSelectDate
-                                    dateOfBirth={this.state.dateOfBirth}
+                                    birhtDate={this.state.birhtDate}
                                     handleChange={this.handleFormFields}
                                 />
                             </Grid>

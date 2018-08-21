@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import AddIcon from '@material-ui/icons/Add'
 
 const styles = theme => ({
   button: {
@@ -14,7 +14,7 @@ const styles = theme => ({
   extendedIcon: {
     marginRight: theme.spacing.unit,
   },
-});
+})
 
 function ButtonAddContact(props) {
   const { classes } = props;
@@ -24,7 +24,7 @@ function ButtonAddContact(props) {
         <AddIcon />
       </Button>
     </div>
-  );
+  )
 }
 
 ButtonAddContact.propTypes = {

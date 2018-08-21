@@ -7,30 +7,29 @@ import Grid from '@material-ui/core/Grid'
 import WindowContactViewing from './WindowContactViewing/index'
 import ContactsList from './ContactsList'
 import {connect} from 'react-redux'
-import {deleteContact, changeStateFavorite} from '../AC'
+import {deleteContact, changeStateFavorite, hideWindowContactViewing} from '../AC'
 
 class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
             windowAddContactIsShow: false,
-            windowContactInfoIsShow: false,
             idViewedContact: null,
             idEditableContact: null
         }
         this.handlerButtonDeleteContact = this.handlerButtonDeleteContact.bind(this)
         this.showWindowAddContact = this.showWindowAddContact.bind(this)
         this.closeWindowAddContact = this.closeWindowAddContact.bind(this)
-        this.showWindowContactInfo = this.showWindowContactInfo.bind(this)
-        this.closeWindowContactInfo = this.closeWindowContactInfo.bind(this)
         this.changeContactFavorite = this.changeContactFavorite.bind(this)
     }
 
     showWindowAddContact (arg) {
+        const {hideWindowContactViewing} = this.props
         const id = typeof arg == 'string' ? arg : null
+
+        hideWindowContactViewing()
         this.setState({
             windowAddContactIsShow: true,
-            windowContactInfoIsShow: false,
             idEditableContact: id
         })
     }
@@ -41,29 +40,16 @@ class App extends Component {
         })
     }
 
-    showWindowContactInfo (id) {
-        this.setState({
-            idViewedContact: id,
-            windowContactInfoIsShow: true
-        })
-    }
-
-    closeWindowContactInfo () {
-        this.setState({
-            windowContactInfoIsShow: false
-        })
-    }
-
     handlerButtonDeleteContact (e) {
-        const {deleteContact} = this.props
+        const {deleteContact, hideWindowContactViewing} = this.props
         const idDeleteContact = e.currentTarget.dataset.idContact
-        this.closeWindowContactInfo()
+        hideWindowContactViewing()
         deleteContact(idDeleteContact)
     }
 
-    changeContactFavorite (id) {
+    changeContactFavorite (id, stateFavourite) {
         const {changeStateFavorite} = this.props
-        changeStateFavorite(id)
+        changeStateFavorite(id, stateFavourite)
     }
 
     render () {
@@ -82,7 +68,6 @@ class App extends Component {
                         <ContactsList deleteContact = {this.handlerButtonDeleteContact}
                                    showWindowAddContact = {this.showWindowAddContact}
                                    changeContactFavorite = {this.changeContactFavorite}
-                                   showWindowAddContact = {this.showWindowAddContact}
                         />
                     </Grid>
                 </Grid>
@@ -93,7 +78,6 @@ class App extends Component {
                 />
                 <WindowContactViewing isShow = {this.state.windowContactInfoIsShow}
                                       idContact = {this.state.idViewedContact}
-                                      closeWindowContactInfo = {this.closeWindowContactInfo}
                                       deleteContact = {this.handlerButtonDeleteContact}
                                       changeContactFavorite = {this.changeContactFavorite}
                                       showWindowAddContact = {this.showWindowAddContact}
@@ -106,4 +90,7 @@ class App extends Component {
     }
 }
 
-export default connect(null, { deleteContact, changeStateFavorite })(App)
+export default connect(null,
+    { deleteContact,
+    changeStateFavorite,
+    hideWindowContactViewing })(App)

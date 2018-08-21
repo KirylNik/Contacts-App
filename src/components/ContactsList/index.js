@@ -9,6 +9,7 @@ import BackgroundContactList from '../BackgroundContactList'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import StarIcon from '../icons/StarIcon'
+import {getListAllContacts} from '../../AC'
 import {connect} from 'react-redux'
 
 const styles = theme => ({
@@ -40,6 +41,7 @@ class UsersList extends React.Component {
         this.state = {
             quantityDisplayContacts: 0
         }
+        this.getDate = this.getDate.bind(this)
         this.getListElem = this.getListElem.bind(this)
         this.getTypeGroup = this.getTypeGroup.bind(this)
         this.getNumberPhone = this.getNumberPhone.bind(this)
@@ -49,7 +51,7 @@ class UsersList extends React.Component {
         this.setQuantityDisplayContacts = this.setQuantityDisplayContacts.bind(this)
     }
 
-    setQuantityDisplayContacts (value) {
+    setQuantityDisplayContacts (value = 0) {
         this.setState({
             quantityDisplayContacts: value
         })
@@ -62,25 +64,36 @@ class UsersList extends React.Component {
         }
     }
 
-    getTypeGroup (groupObj) {
-
-        if (groupObj.work) {
-            return 'Work'
-        } else if (groupObj.family) {
-            return 'Family'
+    getTypeGroup (groupsArr) {
+        if (!groupsArr) {
+            return ''
         } else {
-            return 'Frends'
+            return groupsArr.join()
+        }
+    }
+
+    getDate (date) {
+        if (!date) {
+            return ''
+        } else {
+            const day = new Date(date).getDate()
+            const month = new Date(date).getMonth()
+            const year = new Date(date).getFullYear()
+
+            return `${day}/${month}/${year}`
         }
     }
     
-    getNumberPhone (phoneObj) {
-        if (phoneObj.mobile) {
-            return `${phoneObj.mobile} (mobile)`
-        } else if (phoneObj.home) {
-            return `${phoneObj.home} (home)`
-        } else {
-            return `${phoneObj.work} (work)`
-        }
+    getNumberPhone (phonesArr) {
+        const { classes } = this.props
+
+        const arrPhonesElem =  phonesArr.map((item) => 
+            <Typography variant="title" className={classes.smallFontSize} key={Date.now()}>
+                {`${item.type}: ${item.number}`}
+            </Typography>
+        )
+
+        return arrPhonesElem
     }
 
     handlerButtonEdit (e) {
@@ -92,20 +105,21 @@ class UsersList extends React.Component {
     handlerButtonFavorite (e) {
         const { changeContactFavorite } = this.props
         const idContact = e.currentTarget.dataset.idContact
-        changeContactFavorite(idContact)
+        const stateFavourite = e.currentTarget.dataset.stateFavourite === 'false' ? false : true
+        e.currentTarget.dataset.stateFavourite = !stateFavourite
+        changeContactFavorite(idContact, !stateFavourite)
     }
 
     getListElem (item) {
         const { classes,
                 deleteContact,
               } = this.props
-
             return (
                 <div key={item.id}>
                     <Grid container spacing={8} alignItems="center">
                         <Grid item xs={1}>
                             <Typography variant="title" className={classes.capitalLetter}>
-                                {item.firstName[0]}
+                                {item.firstName[0].toUpperCase()}
                             </Typography>
                         </Grid>
                         <Grid item xs={1}>
@@ -117,13 +131,11 @@ class UsersList extends React.Component {
                             </Typography>
                         </Grid>
                         <Grid item xs={3}>
-                            <Typography variant="title" className={classes.smallFontSize}>
-                                {this.getNumberPhone(item.phoneNumberClass)}
-                            </Typography>
+                            {this.getNumberPhone(item.phones)}
                         </Grid>
                         <Grid item xs={1}>
                             <Typography variant="title" className={classes.smallFontSize}>
-                                {item.dateOfBirth}
+                                {this.getDate(item.birhtDate)}
                             </Typography>
                         </Grid>
                         <Grid item xs={1}>
@@ -140,8 +152,9 @@ class UsersList extends React.Component {
                             <IconButton className={classes.buttonContainer}
                                         onClick={this.handlerButtonFavorite}
                                         data-id-contact={item.id}
+                                        data-state-favourite={item.favourite}
                             >
-                                <StarIcon isActive={item.isFavorite}/>
+                                <StarIcon isActive={item.favourite}/>
                             </IconButton>
                             <IconButton className={classes.buttonContainer}
                                         onClick={this.handlerButtonEdit}
@@ -167,12 +180,18 @@ class UsersList extends React.Component {
     }
 
     componentWillMount () {
-        const { contacts } = this.props
+        const { contacts, getListAllContacts } = this.props
+        getListAllContacts()
         this.setQuantityDisplayContacts(contacts.length)
     }
 
     render() {
         const { classes, contacts } = this.props
+
+        if (!contacts.length) {
+            return null
+        }
+
         const listElem = contacts.map(this.getListElem)
         const backgroundContactList = this.getBackgroundContactList()
         
@@ -186,11 +205,11 @@ class UsersList extends React.Component {
 }
 
 UsersList.propTypes = {
-  classes: PropTypes.object.isRequired,
-  // from connect:
-  contacts: PropTypes.array
+//   classes: PropTypes.object.isRequired,
+//   // from connect:
+//   contacts: PropTypes.array
 }
 
 export default connect((state) => ({
     contacts: state.contacts
-}))(withStyles(styles)(UsersList))
+}), { getListAllContacts })(withStyles(styles)(UsersList))

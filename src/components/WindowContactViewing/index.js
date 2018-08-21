@@ -10,6 +10,7 @@ import DateRange from '@material-ui/icons/DateRange'
 import People from '@material-ui/icons/People'
 import WC from '@material-ui/icons/Wc'
 import {connect} from 'react-redux'
+import {hideWindowContactViewing} from '../../AC'
 
 const styles = theme => ({
     root: {
@@ -36,8 +37,15 @@ const styles = theme => ({
 class WindowContactViewing extends React.Component {
     constructor(props) {
         super(props)
+        this.closeThisWindow = this.closeThisWindow.bind(this)
+        this.getNumberPhone = this.getNumberPhone.bind(this)
         this.handlerButtonEdit = this.handlerButtonEdit.bind(this)
         this.handlerButtonFavorite = this.handlerButtonFavorite.bind(this)
+    }
+
+    closeThisWindow () {
+        const { hideWindowContactViewing } = this.props
+        hideWindowContactViewing()
     }
 
     handlerButtonEdit (e) {
@@ -52,16 +60,38 @@ class WindowContactViewing extends React.Component {
         changeContactFavorite(idContact)
     }
 
+    getDate (date) {
+        if (!date) {
+            return ''
+        } else {
+            const day = new Date(date).getDate()
+            const month = new Date(date).getMonth()
+            const year = new Date(date).getFullYear()
+
+            return `${day}/${month}/${year}`
+        }
+    }
+    
+    getNumberPhone (phonesArr) {
+        const { classes } = this.props
+
+        const arrPhonesElem =  phonesArr.map((item) => 
+            <Typography variant="title" className={classes.smallFontSize} key={Date.now()}>
+                {`${item.type}: ${item.number}`}
+            </Typography>
+        )
+
+        return arrPhonesElem
+    }
+
     render() {
         const { classes,
-                isShow,
                 idContact,
                 contacts,
-                closeWindowContactInfo,
                 deleteContact
               } = this.props
 
-        if (!isShow) return null
+        if (!idContact) return null
         const arrContact = contacts.filter(item => item.id === idContact)
         const objContact = arrContact[0]
         return (
@@ -70,8 +100,8 @@ class WindowContactViewing extends React.Component {
                     <Header firstName={objContact.firstName}
                             lastName={objContact.lastName}
                             id={objContact.id}
-                            isFavorite={objContact.isFavorite}
-                            closeThisWindow={closeWindowContactInfo}
+                            isFavorite={objContact.favourite}
+                            closeThisWindow={this.closeThisWindow}
                             deleteContact={deleteContact}
                             handlerButtonEdit={this.handlerButtonEdit}
                             handlerButtonFavorite={this.handlerButtonFavorite}
@@ -86,16 +116,14 @@ class WindowContactViewing extends React.Component {
                             <Phone className={classes.icons}/>
                         </Grid>
                         <Grid item xs={10}>
-                            <Typography className={classes.headerTitle} variant="title">
-                                {`${objContact.phoneNumber} (${objContact.phoneNumberClass})`}
-                            </Typography>
+                            {this.getNumberPhone(objContact.phones)}
                         </Grid>
                         <Grid item xs={2} className={classes.iconsContainer}>
                             <DateRange className={classes.icons}/>
                         </Grid>
                         <Grid item xs={10}>
                             <Typography className={classes.headerTitle} variant="title">
-                                {objContact.dateOfBirth}
+                                {this.getDate(objContact.birhtDate)}
                             </Typography>
                         </Grid>
                         <Grid item xs={2} className={classes.iconsContainer}>
@@ -126,5 +154,6 @@ WindowContactViewing.propTypes = {
 }
 
 export default connect((state) => ({
-    contacts: state.contacts
-})) (withStyles(styles)(WindowContactViewing))
+    contacts: state.contacts,
+    idContact: state.viewableContact
+}), { hideWindowContactViewing }) (withStyles(styles)(WindowContactViewing))

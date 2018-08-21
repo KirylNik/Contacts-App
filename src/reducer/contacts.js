@@ -1,4 +1,3 @@
-import {contacts as defaultContacts} from '../contacts'
 import {
         ADD_CONTACT,
         GET_CONTACT,
@@ -9,11 +8,14 @@ import {
         LIST_ALL_CONTACTS
        } from '../constants'
 
-export default (contactsState = defaultContacts, action) => {
-    const {type, payload} = action
+export default (contactsState = {}, action) => {
+    const {type, payload, response} = action
 
     switch (type) {
-        case ADD_CONTACT: return contactsState.concat(payload.objContact)
+        case ADD_CONTACT:
+            const objectContact = Object.assign({}, payload.objContact)
+            objectContact.id = response
+            return contactsState.concat(objectContact)
 
         case GET_CONTACT: return contactsState.filter((item) => {
             return item.id === payload.id
@@ -25,12 +27,12 @@ export default (contactsState = defaultContacts, action) => {
         case UPDATE_CONTACT: return contactsState.map((item) => {
             return (item.id == payload.objContact.id ? payload.objContact : item)
         })
-
+        debugger
         case CHANGE_STATE_FAVORITE: return contactsState.map((item) => {
             if (item.id != payload.id) {
                 return item
             } else {
-                item.isFavorite = !item.isFavorite
+                item.favourite = !item.favourite
                 return item
             }
         })
@@ -39,7 +41,7 @@ export default (contactsState = defaultContacts, action) => {
             return item.isFavorite
         })
 
-        case LIST_ALL_CONTACTS: return defaultContacts.slice()
+        case LIST_ALL_CONTACTS: return response
     }
 
     return contactsState
