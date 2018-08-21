@@ -38,7 +38,6 @@ export function addContact(objContact) {
 
 export function updateContact(objContact) {
     return (dispatch) => {
-        debugger
         fetch('http://localhost:8080/contact', {
             method: 'PUT',
             headers: {
@@ -62,11 +61,14 @@ export function getContact(id) {
 }
 
 export function deleteContact(id) {
-    return {
-        type: DELETE_CONTACT,
-        payload: { id },
-        callAPI: `http://localhost:8080/contacts?ids=${id}`,
-        requestType: 'DELETE'
+    return (dispatch) => {
+        fetch(`http://localhost:8080/contacts?ids=${id}`, {
+            method: 'DELETE',
+        })
+            .then(() => dispatch({
+                type: DELETE_CONTACT,
+                payload: {id}
+            }))
     }
 }
 
@@ -98,10 +100,19 @@ export function sortContactsByFavorites() {
 }
 
 export function getListAllContacts() {
-    return {
-        type: LIST_ALL_CONTACTS,
-        callAPI: 'http://localhost:8080/contacts',
-        requestType: 'GET'
+    return (dispatch) => {
+        fetch('http://localhost:8080/contacts', {
+            method: 'GET',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+        })
+            .then(res => res.json())
+            .then(response => dispatch({
+                type: LIST_ALL_CONTACTS,
+                payload: {response}
+            }))
     }
 }
 

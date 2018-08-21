@@ -10,7 +10,6 @@ import {
 
 export default (contactsState = {}, action) => {
     const {type, payload, response} = action
-
     switch (type) {
         case ADD_CONTACT:
             const objectContact = Object.assign({}, payload.objContact)
@@ -20,6 +19,7 @@ export default (contactsState = {}, action) => {
         case GET_CONTACT: return contactsState.filter((item) => {
             return item.id === payload.id
         })
+        
         case DELETE_CONTACT: return contactsState.filter((item) => {
             return item.id != payload.id
         })
@@ -27,7 +27,7 @@ export default (contactsState = {}, action) => {
         case UPDATE_CONTACT: return contactsState.map((item) => {
             return (item.id == payload.objContact.id ? payload.objContact : item)
         })
-        debugger
+
         case CHANGE_STATE_FAVORITE: return contactsState.map((item) => {
             if (item.id != payload.id) {
                 return item
@@ -41,7 +41,7 @@ export default (contactsState = {}, action) => {
             return item.isFavorite
         })
 
-        case LIST_ALL_CONTACTS: return response
+        case LIST_ALL_CONTACTS: return payload.response
     }
 
     return contactsState

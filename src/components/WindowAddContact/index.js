@@ -153,7 +153,6 @@ class WindowAddContact extends React.Component {
     }
 
     handlerButtonSave () {
-        console.log(this.state.nowUpdate)
         const {addContact, updateContact} = this.props
         const objContact = this.getObjectContact()
         if (this.state.nowUpdate) {
