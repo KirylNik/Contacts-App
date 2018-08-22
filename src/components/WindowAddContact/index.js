@@ -73,11 +73,6 @@ class WindowAddContact extends React.Component {
         super(props)
         this.state = this.setDefaultState()
         this.hideThisWindows = this.props.handlerClose
-        this.getObjectContact = this.getObjectContact.bind(this)
-        this.handlerButtonCancel = this.handlerButtonCancel.bind(this)
-        this.setDefaultState = this.setDefaultState.bind(this)
-        this.handleFormFields = this.handleFormFields.bind(this)
-        this.handlerButtonSave = this.handlerButtonSave.bind(this)
     }
 
     setDefaultState () {
@@ -118,7 +113,7 @@ class WindowAddContact extends React.Component {
         }
     }
 
-    handleFormFields (name) {
+    handleFormFields = (name) => {
         return (
             event => {
                 this.setState({
@@ -128,12 +123,12 @@ class WindowAddContact extends React.Component {
         )
     }
 
-    handlerButtonCancel () {
+    handlerButtonCancel = () => {
         this.hideThisWindows()
         this.setState(this.setDefaultState())
     }
 
-    getObjectContact () {
+    getObjectContact = () => {
         const objContact = {}
 
         objContact.id = this.state.id
@@ -152,7 +147,7 @@ class WindowAddContact extends React.Component {
         return objContact
     }
 
-    handlerButtonSave () {
+    handlerButtonSave = () => {
         const {addContact, updateContact} = this.props
         const objContact = this.getObjectContact()
         if (this.state.nowUpdate) {
@@ -164,15 +159,15 @@ class WindowAddContact extends React.Component {
         this.setState(this.setDefaultState())
     }
 
-    getTypeGroup (groupArr) {
+    getTypeGroup = (groupArr) => {
         return 'Friends'
     }
     
-    getNumberPhone (phonesArr) {
+    getNumberPhone = (phonesArr) => {
         return phonesArr[0].number
     }
 
-    getClassNumberPhone (phonesArr) {
+    getClassNumberPhone = (phonesArr) => {
         return phonesArr[0].type
     }
 

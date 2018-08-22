@@ -74,10 +74,9 @@ const styles = theme => ({
 class AppHeader extends React.Component {
 	constructor (props) {
 		super(props)
-		this.hundlerShowSidebar = this.hundlerShowSidebar.bind(this)
 	}
 
-	hundlerShowSidebar () {
+	hundlerShowSidebar = () => {
         const {changeStateIsOpenSidebar} = this.props
         changeStateIsOpenSidebar()
     }

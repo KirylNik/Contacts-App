@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import Grid from '@material-ui/core/Grid'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select'
 import ButtonAdd from '../bottons/ButtonAdd'
 import ButtonDelete from '../bottons/ButtonDelete'
 
@@ -34,7 +34,7 @@ const styles = theme => ({
         padding: '0px !important',
         marginLeft: theme.spacing.unit * 3
     }
-});
+})
 
 function FieldsFillingPhone(props) {
     const { classes,
@@ -87,6 +87,6 @@ function FieldsFillingPhone(props) {
 
 FieldsFillingPhone.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(FieldsFillingPhone);
+export default withStyles(styles)(FieldsFillingPhone)

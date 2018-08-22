@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import Grid from '@material-ui/core/Grid'
 
 const styles = theme => ({
     container: {
@@ -19,7 +19,7 @@ const styles = theme => ({
     gridTextField: {
         paddingLeft: '10px'
     }
-});
+})
 
 function FieldsFillingName(props) {
     const { classes,
@@ -73,6 +73,6 @@ function FieldsFillingName(props) {
 
 FieldsFillingName.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(FieldsFillingName);
+export default withStyles(styles)(FieldsFillingName)

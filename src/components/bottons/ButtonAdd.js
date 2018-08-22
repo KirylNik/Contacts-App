@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import AddCircle from '@material-ui/icons/AddCircle';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import IconButton from '@material-ui/core/IconButton'
+import AddCircle from '@material-ui/icons/AddCircle'
 
 const styles = theme => ({
   button: {
@@ -13,7 +13,7 @@ const styles = theme => ({
   input: {
     display: 'none',
   },
-});
+})
 
 function ButtonAdd(props) {
   const { classes } = props;
@@ -21,11 +21,11 @@ function ButtonAdd(props) {
       <IconButton className={classes.button} color="secondary" aria-label="Add">
         <AddCircle />
       </IconButton>
-  );
+  )
 }
 
 ButtonAdd.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(ButtonAdd);
+export default withStyles(styles)(ButtonAdd)

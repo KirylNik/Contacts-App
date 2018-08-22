@@ -19,7 +19,7 @@ const styles = theme => ({
     icon: {
         fontSize: theme.spacing.unit * 2.5,
     }
-});
+})
 
 function ItemListGroup(props) {
     const { classes, itemName, countContacts = 0 } = props;
@@ -40,4 +40,4 @@ ItemListGroup.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(ItemListGroup);
+export default withStyles(styles)(ItemListGroup)

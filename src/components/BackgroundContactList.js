@@ -39,10 +39,9 @@ const styles = theme => ({
 class BackgroundContactList extends React.Component {
     constructor(props) {
         super(props)
-        this.getRootStyleClass = this.getRootStyleClass.bind(this)
     }
 
-    getRootStyleClass (leftElementIsShow) {
+    getRootStyleClass = (leftElementIsShow) => {
         const { classes } = this.props
         if (leftElementIsShow) {
             return classes.positionForSidebar

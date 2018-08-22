@@ -37,30 +37,26 @@ const styles = theme => ({
 class WindowContactViewing extends React.Component {
     constructor(props) {
         super(props)
-        this.closeThisWindow = this.closeThisWindow.bind(this)
-        this.getNumberPhone = this.getNumberPhone.bind(this)
-        this.handlerButtonEdit = this.handlerButtonEdit.bind(this)
-        this.handlerButtonFavorite = this.handlerButtonFavorite.bind(this)
     }
 
-    closeThisWindow () {
+    closeThisWindow = () => {
         const { hideWindowContactViewing } = this.props
         hideWindowContactViewing()
     }
 
-    handlerButtonEdit (e) {
+    handlerButtonEdit = (e) => {
         const { showWindowAddContact } = this.props
         const idContact = e.currentTarget.dataset.idContact
         showWindowAddContact(idContact)
     }
 
-    handlerButtonFavorite (e) {
+    handlerButtonFavorite = (e) => {
         const { changeContactFavorite } = this.props
         const idContact = e.currentTarget.dataset.idContact
         changeContactFavorite(idContact)
     }
 
-    getDate (date) {
+    getDate = (date) => {
         if (!date) {
             return ''
         } else {
@@ -72,7 +68,7 @@ class WindowContactViewing extends React.Component {
         }
     }
     
-    getNumberPhone (phonesArr) {
+    getNumberPhone = (phonesArr) => {
         const { classes } = this.props
 
         const arrPhonesElem =  phonesArr.map((item) => 

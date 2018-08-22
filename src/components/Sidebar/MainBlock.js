@@ -25,7 +25,7 @@ const styles = theme => ({
   nested: {
     paddingLeft: theme.spacing.unit * 4,
   },
-});
+})
 
 class MainBlock extends React.Component {
     constructor(props) {
@@ -33,27 +33,23 @@ class MainBlock extends React.Component {
       this.state = {
           open: false,
       }
-      this.getListGroups = this.getListGroups.bind(this)
-      this.handlerButtonContacts = this.handlerButtonContacts.bind(this)
-      this.handlerButtonFavorites = this.handlerButtonFavorites.bind(this)
-      this.handleClick = this.handleClick.bind(this)
     }
 
-  handlerButtonFavorites () {
+  handlerButtonFavorites = () => {
     const {sortContactsByFavorites} = this.props
     sortContactsByFavorites()
   }
 
-  handlerButtonContacts () {
+  handlerButtonContacts = () => {
     const {getListAllContacts} = this.props
     getListAllContacts()
   }
 
-  handleClick () {
+  handleClick = () => {
     this.setState(state => ({ open: !state.open }));
   }
 
-  getListGroups () {
+  getListGroups = () => {
     return <ItemListGroup itemName={'Home'} countContacts={2}/>
   }
 

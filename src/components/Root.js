@@ -1,5 +1,5 @@
 import React from 'react'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { withTheme } from '@material-ui/core/styles'
 import store from '../store'
 import {Provider} from 'react-redux'
@@ -23,7 +23,7 @@ const theme = createMuiTheme({
     status: {
       danger: 'orange',
     },
-  });
+  })
 
 function Root() {
     return (
@@ -37,4 +37,4 @@ function Root() {
     )
 }
 
-export default withTheme()(Root);
+export default withTheme()(Root)

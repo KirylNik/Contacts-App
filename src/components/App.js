@@ -17,13 +17,9 @@ class App extends Component {
             idViewedContact: null,
             idEditableContact: null
         }
-        this.handlerButtonDeleteContact = this.handlerButtonDeleteContact.bind(this)
-        this.showWindowAddContact = this.showWindowAddContact.bind(this)
-        this.closeWindowAddContact = this.closeWindowAddContact.bind(this)
-        this.changeContactFavorite = this.changeContactFavorite.bind(this)
     }
 
-    showWindowAddContact (arg) {
+    showWindowAddContact = (arg) => {
         const {hideWindowContactViewing} = this.props
         const id = typeof arg == 'string' ? arg : null
 
@@ -34,20 +30,20 @@ class App extends Component {
         })
     }
 
-    closeWindowAddContact () {
+    closeWindowAddContact = () => {
         this.setState({
             windowAddContactIsShow: false
         })
     }
 
-    handlerButtonDeleteContact (e) {
+    handlerButtonDeleteContact = (e) => {
         const {deleteContact, hideWindowContactViewing} = this.props
         const idDeleteContact = e.currentTarget.dataset.idContact
         hideWindowContactViewing()
         deleteContact(idDeleteContact)
     }
 
-    changeContactFavorite (id, stateFavourite) {
+    changeContactFavorite = (id, stateFavourite) => {
         const {changeStateFavorite} = this.props
         changeStateFavorite(id, stateFavourite)
     }

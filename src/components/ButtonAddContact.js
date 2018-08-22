@@ -29,6 +29,6 @@ function ButtonAddContact(props) {
 
 ButtonAddContact.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(ButtonAddContact);
+export default withStyles(styles)(ButtonAddContact)

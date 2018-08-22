@@ -41,30 +41,22 @@ class UsersList extends React.Component {
         this.state = {
             quantityDisplayContacts: 0
         }
-        this.getDate = this.getDate.bind(this)
-        this.getListElem = this.getListElem.bind(this)
-        this.getTypeGroup = this.getTypeGroup.bind(this)
-        this.getNumberPhone = this.getNumberPhone.bind(this)
-        this.handlerButtonEdit = this.handlerButtonEdit.bind(this)
-        this.handlerButtonFavorite = this.handlerButtonFavorite.bind(this)
-        this.getBackgroundContactList = this.getBackgroundContactList.bind(this)
-        this.setQuantityDisplayContacts = this.setQuantityDisplayContacts.bind(this)
     }
 
-    setQuantityDisplayContacts (value = 0) {
+    setQuantityDisplayContacts = (value = 0) => {
         this.setState({
             quantityDisplayContacts: value
         })
     }
 
-    getBackgroundContactList () {
+    getBackgroundContactList = () => {
         if (!this.state.quantityDisplayContacts) {
             const {showWindowAddContact} = this.props
             return <BackgroundContactList showWindowAddContact = {showWindowAddContact}/>
         }
     }
 
-    getTypeGroup (groupsArr) {
+    getTypeGroup = (groupsArr) => {
         if (!groupsArr) {
             return ''
         } else {
@@ -72,7 +64,7 @@ class UsersList extends React.Component {
         }
     }
 
-    getDate (date) {
+    getDate = (date) => {
         if (!date) {
             return ''
         } else {
@@ -84,7 +76,7 @@ class UsersList extends React.Component {
         }
     }
     
-    getNumberPhone (phonesArr) {
+    getNumberPhone = (phonesArr) => {
         const { classes } = this.props
 
         const arrPhonesElem =  phonesArr.map((item) => 
@@ -96,13 +88,13 @@ class UsersList extends React.Component {
         return arrPhonesElem
     }
 
-    handlerButtonEdit (e) {
+    handlerButtonEdit = (e) => {
         const { showWindowAddContact } = this.props
         const idContact = e.currentTarget.dataset.idContact
         showWindowAddContact(idContact)
     }
 
-    handlerButtonFavorite (e) {
+    handlerButtonFavorite = (e) =>{
         const { changeContactFavorite } = this.props
         const idContact = e.currentTarget.dataset.idContact
         const stateFavourite = e.currentTarget.dataset.stateFavourite === 'false' ? false : true
@@ -110,7 +102,7 @@ class UsersList extends React.Component {
         changeContactFavorite(idContact, !stateFavourite)
     }
 
-    getListElem (item) {
+    getListElem = (item) => {
         const { classes,
                 deleteContact,
               } = this.props
@@ -174,12 +166,12 @@ class UsersList extends React.Component {
             )
     }
 
-    componentWillReceiveProps () {
+    componentWillReceiveProps = () => {
         const { contacts } = this.props
         this.setQuantityDisplayContacts(contacts.length-1)
     }
 
-    componentWillMount () {
+    componentWillMount = () => {
         const { contacts, getListAllContacts } = this.props
         getListAllContacts()
         this.setQuantityDisplayContacts(contacts.length)

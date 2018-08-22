@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import Collapse from '@material-ui/core/Collapse'
+import ExpandLess from '@material-ui/icons/ExpandLess'
+import ExpandMore from '@material-ui/icons/ExpandMore'
 import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications'
 import Grey from '@material-ui/core/colors/grey'
 
@@ -22,7 +22,7 @@ const styles = theme => ({
   nested: {
     paddingLeft: theme.spacing.unit * 4,
   },
-});
+})
 
 class SettingsBlock extends React.Component {
     constructor(props) {
@@ -30,12 +30,11 @@ class SettingsBlock extends React.Component {
         this.state = {
             open: false,
         }
-        this.handleClick = this.handleClick.bind(this)
     }
 
-  handleClick () {
+  handleClick = () => {
     this.setState(state => ({ open: !state.open }));
-  };
+  }
 
   render() {
     const { classes} = this.props;
@@ -65,6 +64,6 @@ class SettingsBlock extends React.Component {
 
 SettingsBlock.propTypes = {
   classes: PropTypes.object.isRequired
-};
+}
 
-export default withStyles(styles)(SettingsBlock);
+export default withStyles(styles)(SettingsBlock)

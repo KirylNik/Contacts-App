@@ -35,11 +35,11 @@ function FieldsSelectDate(props) {
             }}
         />
     </div>
-  );
+  )
 }
 
 FieldsSelectDate.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(FieldsSelectDate);
+export default withStyles(styles)(FieldsSelectDate)
