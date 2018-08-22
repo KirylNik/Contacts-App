@@ -71,69 +71,63 @@ const styles = theme => ({
 	},
 })
 
-class AppHeader extends React.Component {
-	constructor (props) {
-		super(props)
+function AppHeader(props) {
+	const {classes, handlerSidebar} = props
+
+	const hundlerShowSidebar = function () {
+		const {changeStateIsOpenSidebar} = props
+		changeStateIsOpenSidebar()
 	}
 
-	hundlerShowSidebar = () => {
-        const {changeStateIsOpenSidebar} = this.props
-        changeStateIsOpenSidebar()
-    }
-	
-	render () {
-		const { classes, handlerSidebar} = this.props
-
-		return (
-			<div className={classes.root}>
-				<AppBar position="static">
-					<Toolbar>
-						<Grid container spacing={24} alignItems="center">
-							<Grid item xs={1}></Grid>
-							<Grid item xs={2} className={classes.sectionMenu}>
-								<div onClick={handlerSidebar}>
-									<IconButton className={classes.menuButton}
-												color="inherit"
-												aria-label="Menu"
-												onClick={this.hundlerShowSidebar}
-									>
-										<MenuIcon />
-									</IconButton>
-								</div>
-								<Typography variant="title" color="inherit" className={classes.flex}>
-									Contacts
-								</Typography>
-							</Grid>
-							<Grid item xs={4}>
-								<div className={classes.searchBox}>
-									<Search className={classes.searchIcon}/>
-									<FormControl className={classes.searchForm}>
-										<InputLabel
-											FormLabelClasses={{
-												root: classes.cssLabel,
-												focused: classes.cssFocused,
-											}}
-											htmlFor="field-search-contacts"
-										>
-											Search
-										</InputLabel>
-										<Input
-											classes={{
-												underline: classes.cssUnderline,
-												root: classes.cssInputSearch,
-												focused: classes.cssFocused,
-											}}
-											id="field-search-contacts"
-										/>
-									</FormControl>
-								</div>
-							</Grid>
+	return (
+		<div className={classes.root}>
+			<AppBar position="static">
+				<Toolbar>
+					<Grid container spacing={24} alignItems="center">
+						<Grid item xs={1}></Grid>
+						<Grid item xs={2} className={classes.sectionMenu}>
+							<div onClick={handlerSidebar}>
+								<IconButton className={classes.menuButton}
+											color="inherit"
+											aria-label="Menu"
+											onClick={hundlerShowSidebar}
+								>
+									<MenuIcon />
+								</IconButton>
+							</div>
+							<Typography variant="title" color="inherit" className={classes.flex}>
+								Contacts
+							</Typography>
 						</Grid>
-					</Toolbar>
-				</AppBar>
-			</div>
-		)
-	}
+						<Grid item xs={4}>
+							<div className={classes.searchBox}>
+								<Search className={classes.searchIcon}/>
+								<FormControl className={classes.searchForm}>
+									<InputLabel
+										FormLabelClasses={{
+											root: classes.cssLabel,
+											focused: classes.cssFocused,
+										}}
+										htmlFor="field-search-contacts"
+									>
+										Search
+									</InputLabel>
+									<Input
+										classes={{
+											underline: classes.cssUnderline,
+											root: classes.cssInputSearch,
+											focused: classes.cssFocused,
+										}}
+										id="field-search-contacts"
+									/>
+								</FormControl>
+							</div>
+						</Grid>
+					</Grid>
+				</Toolbar>
+			</AppBar>
+		</div>
+	)
 }
 
 AppHeader.propTypes = {

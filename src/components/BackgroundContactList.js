@@ -36,36 +36,31 @@ const styles = theme => ({
     }
 })
 
-class BackgroundContactList extends React.Component {
-    constructor(props) {
-        super(props)
-    }
+function BackgroundContactList (props) {
+    const { classes, showWindowAddContact, sidebarState } = props
 
-    getRootStyleClass = (leftElementIsShow) => {
-        const { classes } = this.props
+    const getRootStyleClass = function(leftElementIsShow) {
+        const { classes } = props
         if (leftElementIsShow) {
             return classes.positionForSidebar
         } else {
             return classes.positionWithoutSidebar
         }
     }
+    
+    const rootStyleClass = getRootStyleClass(sidebarState)
 
-    render () {
-        const { classes, showWindowAddContact, sidebarState } = this.props
-        const rootStyleClass = this.getRootStyleClass(sidebarState)
-
-        return (
-            <div className={rootStyleClass}>
-                <PermContactCalendarIcon className={classes.icon}/>
-                <Typography variant="title" className={classes.title}>
-                    You do not have any contacts yet.
-                </Typography>
-                <Button color="secondary" className={classes.button} onClick={showWindowAddContact}>
-                    Add Contact
-                </Button>
-            </div>
-        )
-    }
+    return (
+        <div className={rootStyleClass}>
+            <PermContactCalendarIcon className={classes.icon}/>
+            <Typography variant="title" className={classes.title}>
+                You do not have any contacts yet.
+            </Typography>
+            <Button color="secondary" className={classes.button} onClick={showWindowAddContact}>
+                Add Contact
+            </Button>
+        </div>
+    )
 }
 
 BackgroundContactList.propTypes = {

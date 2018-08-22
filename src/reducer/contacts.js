@@ -19,7 +19,7 @@ export default (contactsState = {}, action) => {
         case GET_CONTACT: return contactsState.filter((item) => {
             return item.id === payload.id
         })
-        
+
         case DELETE_CONTACT: return contactsState.filter((item) => {
             return item.id != payload.id
         })
@@ -38,7 +38,7 @@ export default (contactsState = {}, action) => {
         })
 
         case SORT_CONTACTS_BY_FAVORITES: return contactsState.filter((item) => {
-            return item.isFavorite
+            return item.favourite
         })
 
         case LIST_ALL_CONTACTS: return payload.response
