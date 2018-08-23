@@ -1,10 +1,11 @@
-import { CHANGE_STATE_IS_OPEN_SIDEBAR } from '../constants'
+import actionsHandlerSidebar from '../utils/actionsHandler/sidebar/actionsHandlerSidebar'
 
 export default (currentState = false, action) => {
-    const {type} = action
-    switch (type) {
-        case CHANGE_STATE_IS_OPEN_SIDEBAR: return !currentState
-    }
+    const result = actionsHandlerSidebar(action, currentState)
 
-    return currentState
+    if (result != null) {
+        return result
+    } else {
+        return currentState
+    }
 }

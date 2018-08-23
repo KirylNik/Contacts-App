@@ -1,9 +1,8 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const HtmlWebPackPlugin = require("html-webpack-plugin")
 
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
-  template: "./src/index.html",
-  filename: "./index.html"
-});
+  template: "./src/index.html"
+})
 
 module.exports = {
   module: {
@@ -11,32 +10,24 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
+        loader: "babel-loader"
       },
       {
         test: /\.scss$/,
-        use: [{
-            loader: "style-loader"
-        }, {
-            loader: "css-loader", options: {
-                sourceMap: true
-            }
-        }, {
-            loader: "sass-loader", options: {
-                sourceMap: true
-            }
-        }]
-       }
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader"
+        ]
+      }
     ]
   },
   devServer: {
     proxy: {
-        '/**': {
-            target: 'http://localhost:8086/',
-        },
+      '/**': {
+        target: 'http://localhost:8086/',
+      },
     }
   },
   plugins: [htmlWebpackPlugin]
-};
+}

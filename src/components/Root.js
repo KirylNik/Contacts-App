@@ -2,8 +2,8 @@ import React from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { withTheme } from '@material-ui/core/styles'
 import store from '../store'
-import {Provider} from 'react-redux'
-import App from './App'
+import { Provider } from 'react-redux'
+import App from './App/App'
 
 const theme = createMuiTheme({
     palette: {
@@ -29,9 +29,7 @@ function Root() {
     return (
         <Provider store={store}>
             <MuiThemeProvider theme={theme}>
-                <div>
-                    <App />
-                </div>  
+                <App />
             </MuiThemeProvider>
         </Provider>
     )

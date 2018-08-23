@@ -1,12 +1,11 @@
-import { SET_VIEWABLE_CONTACT, HIDE_WINDOW_CONTACT_VIEWING } from '../constants'
+import actionsHandlerViewableContact from '../utils/actionsHandler/viewableContact/actionsHandlerViewableContact'
 
-export default (currentState = null, action) => {
-    const {type, payload} = action
-    switch (type) {
-        case SET_VIEWABLE_CONTACT: return payload.id
+export default (currentState = false, action) => {
+    const result = actionsHandlerViewableContact(action, currentState)
 
-        case HIDE_WINDOW_CONTACT_VIEWING: return null
+    if (result != null) {
+        return result
+    } else {
+        return currentState
     }
-
-    return currentState
 }
