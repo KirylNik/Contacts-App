@@ -8,19 +8,19 @@ import { connect } from 'react-redux'
 import { styles } from './styles'
 
 function Sidebar(props) {
-    const { classes, sidebarState } = props;
-    if (!sidebarState) return null
+  const { classes, sidebarState } = props;
+  if (!sidebarState) return null
 
-        return (
-            <div className={classes.root}>
-                <Paper className={classes.sidebarItem} elevation={8}>
-                    <MainBlock/>
-                </Paper>
-                <Paper>
-                    <SettingsBlock className={classes.sidebarItem} elevation={8}/>
-                </Paper>
-            </div>
-        )
+  return (
+    <div className={classes.root}>
+      <Paper className={classes.sidebarItem} elevation={8}>
+        <MainBlock />
+      </Paper>
+      <Paper>
+        <SettingsBlock className={classes.sidebarItem} elevation={8} />
+      </Paper>
+    </div>
+  )
 }
 
 Sidebar.propTypes = {
@@ -28,5 +28,5 @@ Sidebar.propTypes = {
 }
 
 export default connect((state) => ({
-    sidebarState : state.sidebarState
+  sidebarState: state.sidebarState
 }))(withStyles(styles)(Sidebar))

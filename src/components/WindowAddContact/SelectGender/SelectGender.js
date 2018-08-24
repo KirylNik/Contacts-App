@@ -10,36 +10,36 @@ import Typography from '@material-ui/core/Typography'
 import { styles } from './styles'
 
 function SelectGender(props) {
-    const { classes,
-            gender,
-            handleChange
-          } = props
+  const { classes,
+    gender,
+    handleChange
+  } = props
 
-    return (
-      <div className={classes.root}>
-        <Grid container spacing={8} alignItems="center">
-            <Grid item xs={2} className={classes.label}>
-                <Typography>
-                    Gender
+  return (
+    <div className={classes.root}>
+      <Grid container spacing={8} alignItems="center">
+        <Grid item xs={2} className={classes.label}>
+          <Typography>
+            Gender
                 </Typography>
-            </Grid>
-            <Grid item>
-                <FormControl component="fieldset" className={classes.formControl}>
-                    <RadioGroup
-                        aria-label="Gender"
-                        name="gender"
-                        className={classes.group}
-                        value={gender}
-                        onChange={handleChange('gender')}
-                    >
-                        <FormControlLabel value="Female" control={<Radio />} label="Female" />
-                        <FormControlLabel value="Male" control={<Radio />} label="Male" />
-                    </RadioGroup>
-                </FormControl>
-            </Grid>
         </Grid>
-      </div>
-    )
+        <Grid item>
+          <FormControl component="fieldset" className={classes.formControl}>
+            <RadioGroup
+              aria-label="Gender"
+              name="gender"
+              className={classes.group}
+              value={gender}
+              onChange={handleChange('gender')}
+            >
+              <FormControlLabel value="Female" control={<Radio />} label="Female" />
+              <FormControlLabel value="Male" control={<Radio />} label="Male" />
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+      </Grid>
+    </div>
+  )
 }
 
 SelectGender.propTypes = {

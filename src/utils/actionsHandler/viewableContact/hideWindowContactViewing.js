@@ -1,3 +1,3 @@
 export default function hideWindowContactViewing() {
-    return false
+  return false
 }

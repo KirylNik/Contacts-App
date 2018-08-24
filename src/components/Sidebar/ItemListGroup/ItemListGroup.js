@@ -9,20 +9,20 @@ import { withStyles } from '@material-ui/core/styles'
 import { styles } from './styles'
 
 function ItemListGroup(props) {
-    const { classes,
-            itemName,
-            countContacts = 0 } = props;
+  const { classes,
+    itemName,
+    countContacts = 0 } = props;
 
-        return (
-            <ListItem button className={classes.nested}>
-                <BookmarkIcon className={classes.icon}/>
-                <ListItemText inset
-                              primary={`${itemName} (${countContacts})`}
-                              className={classes.itemText}/>
-                <Edit className={classes.icon}/>
-                <Delete className={classes.icon}/>
-            </ListItem>
-        )
+  return (
+    <ListItem button className={classes.nested}>
+      <BookmarkIcon className={classes.icon} />
+      <ListItemText inset
+        primary={`${itemName} (${countContacts})`}
+        className={classes.itemText} />
+      <Edit className={classes.icon} />
+      <Delete className={classes.icon} />
+    </ListItem>
+  )
 }
 
 ItemListGroup.propTypes = {

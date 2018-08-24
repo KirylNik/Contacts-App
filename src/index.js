@@ -16,11 +16,11 @@ render(<Root />, document.getElementById('app'))
 //         "group":["friends","family"],
 //         "favourite":true
 //     }
-    
+
 //     postData(`http://localhost:8080/contact`, contactData)
 //       .then(data => console.log(data))
 //       .catch(error => console.error(error));
-    
+
 //     function postData(url, data) {
 //         return fetch(url, {
 //             method: "POST",

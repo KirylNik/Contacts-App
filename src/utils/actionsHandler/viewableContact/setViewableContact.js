@@ -1,4 +1,4 @@
 export default function changeStateIsOpenSidebar(action) {
-    const { payload } = action
-    return payload.id
+  const { payload } = action
+  return payload.id
 }

@@ -19,7 +19,7 @@ function Buttons(props) {
       <IconButton className={classes.button} color="secondary" aria-label="Delete">
         <RemoveCircle />
       </IconButton>
-  )
+    )
   }
 }
 

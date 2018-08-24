@@ -38,11 +38,11 @@ class MainBlock extends React.Component {
   }
 
   getListGroups = () => {
-    return <ItemListGroup itemName={'Home'} countContacts={2}/>
+    return <ItemListGroup itemName={'Home'} countContacts={2} />
   }
 
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
     const listGroups = this.getListGroups()
 
     return (

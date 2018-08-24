@@ -8,9 +8,9 @@ import { styles } from './styles'
 function ButtonAddContact(props) {
   const { classes } = props;
   return (
-      <Button variant="fab" color="primary" aria-label="Add" className={classes.button}>
-        <AddIcon />
-      </Button>
+    <Button variant="fab" color="primary" aria-label="Add" className={classes.button}>
+      <AddIcon />
+    </Button>
   )
 }
 
