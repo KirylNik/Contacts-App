@@ -6,8 +6,7 @@ import Grid from '@material-ui/core/Grid'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
-import ButtonAdd from '../../bottons/ButtonAdd'
-import ButtonDelete from '../../bottons/ButtonDelete'
+import Buttons from '../Bottons/Buttons'
 import { styles } from './styles'
 
 function FieldsFillingPhone(props) {
@@ -49,10 +48,10 @@ function FieldsFillingPhone(props) {
                     </FormControl>
                 </Grid>
                 <Grid item className={classes.leftBotton} item xs={1}>
-                    <ButtonDelete />
+                    <Buttons type={'remove'}/>
                 </Grid>
                 <Grid item className={classes.botton} item xs={1}>
-                    <ButtonAdd />
+                    <Buttons type={'add'}/>
                 </Grid>
             </Grid>
         </div>

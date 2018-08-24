@@ -12,7 +12,7 @@ import Search from '@material-ui/icons/Search'
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
-import { CHANGE_STATE_IS_OPEN_SIDEBAR } from '../../constants'
+import { CHANGE_STATE_IS_OPEN_SIDEBAR } from './constants'
 import { styles } from './styles'
 
 function AppHeader(props) {

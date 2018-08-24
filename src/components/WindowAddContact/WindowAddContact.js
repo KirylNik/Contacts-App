@@ -38,10 +38,10 @@ class WindowAddContact extends React.Component {
         }
     }
 
-    componentWillReceiveProps (props) {
-        const { isShow, idEditableContact, contacts } = props
+    componentWillMount () {
+        const { idEditableContact, contacts } = this.props
 
-        if (idEditableContact && isShow) {
+        if (idEditableContact) {
             const arrContact = contacts.filter(item => item.id == idEditableContact)
             const objContact = arrContact[0]
             this.setState({
@@ -51,7 +51,7 @@ class WindowAddContact extends React.Component {
                 lastName: objContact.lastName,
                 phoneNumber: this.getNumberPhone(objContact.phones),
                 phoneNumberClass: this.getClassNumberPhone(objContact.phones),
-                birhtDate: objContact.birhtDate,
+                birhtDate: this.getDate(objContact.birhtDate),
                 group: this.getTypeGroup(objContact.group),
                 gender: objContact.gender,
                 favourite: objContact.favourite,
@@ -89,7 +89,7 @@ class WindowAddContact extends React.Component {
             type: this.state.phoneNumberClass,
             number: this.state.phoneNumber
         }]
-        objContact.birhtDate = Date.parse(this.state.dateOfBirth)
+        objContact.birhtDate = Date.parse(this.state.birhtDate)
 
         return objContact
     }
@@ -117,6 +117,21 @@ class WindowAddContact extends React.Component {
     getClassNumberPhone = (phonesArr) => {
         return phonesArr[0].type
     }
+    
+    getDate = (date) => {
+        if (!date) {
+            return ''
+        } else {
+            let day = new Date(date).getDate()
+            let month = new Date(date).getMonth()
+            let year = new Date(date).getFullYear()
+
+            month < 10 ? (month = '0' + (month + 1)) : (month + 1)
+            day< 10 ? (day = '0' + day) : day
+
+            return `${year}-${month}-${day}`
+        }
+    }
 
     render() {
         const { classes } = this.props
@@ -137,7 +152,7 @@ class WindowAddContact extends React.Component {
                             <Grid item xs={11} className={classes.fields}>
                                 <FieldsFillingName
                                     valueFirstName={this.state.firstName}
-                                    valuemiddleName={this.state.middleName}
+                                    valueMiddleName={this.state.middleName}
                                     valueLastName={this.state.lastName}
                                     handleChange={this.handleFormFields}
                                 />

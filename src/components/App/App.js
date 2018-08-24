@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import AppHeader from '../Header/Header'
-import ButtonAddContact from '../bottons/ButtonAddContact/ButtonAddContact'
+import ButtonAddContact from '../ButtonAddContact/ButtonAddContact'
 import WindowAddContact from '../WindowAddContact/WindowAddContact'
 import Sidebar from '../Sidebar/Sidebar'
 import Grid from '@material-ui/core/Grid'
@@ -20,7 +20,7 @@ class App extends Component {
     showWindowAddContact = (arg) => {
         const id = typeof arg == 'string' ? arg : null
         const {dispatch} = this.props
-        debugger
+
         dispatch({
             type: HIDE_WINDOW_CONTACT_VIEWING
         })

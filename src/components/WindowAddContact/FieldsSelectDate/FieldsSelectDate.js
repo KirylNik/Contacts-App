@@ -6,9 +6,9 @@ import { styles } from './styles'
 
 function FieldsSelectDate(props) {
   const { classes,
-          dateOfBirth,
+          birhtDate,
           handleChange,
-        } = props;
+        } = props
 
   return (
     <div className={classes.container}>
@@ -19,8 +19,8 @@ function FieldsSelectDate(props) {
             type="date"
             fullWidth={true}
             className={classes.textField}
-            value={dateOfBirth}
-            onChange={handleChange('dateOfBirth')}
+            value={birhtDate}
+            onChange={handleChange('birhtDate')}
             InputLabelProps={{
             shrink: true,
             }}

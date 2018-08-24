@@ -5,8 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
-import ButtonAdd from '../../bottons/ButtonAdd'
-import ButtonDelete from '../../bottons/ButtonDelete'
+import Buttons from '../Bottons/Buttons'
 import { styles } from './styles'
 
 function SelectGroupContact(props) {
@@ -35,10 +34,10 @@ function SelectGroupContact(props) {
                     </FormControl>
                 </Grid>
                 <Grid item item xs={2} className={classes.firstButton}>
-                    <ButtonDelete />
+                    <Buttons type={'remove'} />
                 </Grid>
                 <Grid item xs={2}>
-                    <ButtonAdd />
+                    <Buttons type={'add'} />
                 </Grid>
             </Grid>
         </div>
