@@ -7,8 +7,8 @@ import Grid from '@material-ui/core/Grid'
 import WindowContactViewing from '../WindowContactViewing/WindowContactViewing'
 import ContactsList from '../ContactsList/ContactsList'
 import { connect } from 'react-redux'
-import { deleteContact, changeStateFavorite } from './actions'
-import { SET_VIEWABLE_CONTACT } from './constants'
+import { deleteContact, changeStateFavorite, getListGroups } from './actions'
+import { SET_VIEWABLE_CONTACT, GET_LIST_GROUP } from './constants'
 
 class App extends Component {
   state = {
@@ -65,6 +65,11 @@ class App extends Component {
     }
   }
 
+  componentWillMount() {
+    const { dispatch } = this.props
+    dispatch(getListGroups())
+  }
+
   render() {
     return (
       <div>
@@ -79,16 +84,16 @@ class App extends Component {
           </Grid>
           <Grid item xs={9}>
             <ContactsList deleteContact={this.handlerButtonDeleteContact}
-              showWindowAddContact={this.showWindowAddContact}
-              changeContactFavorite={this.changeContactFavorite}
+                          showWindowAddContact={this.showWindowAddContact}
+                          changeContactFavorite={this.changeContactFavorite}
             />
           </Grid>
         </Grid>
         {this.getWindowAddContact()}
         <WindowContactViewing idContact={this.state.idViewedContact}
-          deleteContact={this.handlerButtonDeleteContact}
-          changeContactFavorite={this.changeContactFavorite}
-          showWindowAddContact={this.showWindowAddContact}
+                              deleteContact={this.handlerButtonDeleteContact}
+                              changeContactFavorite={this.changeContactFavorite}
+                              showWindowAddContact={this.showWindowAddContact}
         />
         <div onClick={this.showWindowAddContact}>
           <ButtonAddContact />

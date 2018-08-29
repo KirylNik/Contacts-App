@@ -38,7 +38,13 @@ class MainBlock extends React.Component {
   }
 
   getListGroups = () => {
-    return <ItemListGroup itemName={'Home'} countContacts={2} />
+    const { groups } = this.props
+    return groups.map((item) =>
+                        <ItemListGroup itemName={item.name}
+                                       countContacts={2}
+                                       key={item.id}
+                        />
+                      )
   }
 
   render() {
@@ -78,5 +84,5 @@ MainBlock.propTypes = {
 }
 
 export default connect((state) => ({
-  listGrops: state.listGrops
+  groups: state.groups
 }))(withStyles(styles)(MainBlock))

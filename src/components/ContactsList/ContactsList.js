@@ -150,7 +150,7 @@ class UsersList extends React.Component {
   }
 
   componentWillMount = () => {
-    const { contacts, getListAllContacts } = this.props
+    const { getListAllContacts } = this.props
     getListAllContacts()
   }
 

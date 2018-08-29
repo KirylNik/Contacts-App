@@ -15,7 +15,7 @@ import DateRange from '@material-ui/icons/DateRange'
 import People from '@material-ui/icons/People'
 import Button from '@material-ui/core/Button'
 import { connect } from 'react-redux'
-import { addContact, updateContact, updateListGroups } from './actions'
+import { addContact, updateContact } from './actions'
 import { styles } from './styles'
 
 class WindowAddContact extends React.Component {
@@ -94,19 +94,11 @@ class WindowAddContact extends React.Component {
     return objContact
   }
 
-  updateListGroup = (objContact) => {
-    const { updateListGroups, contacts } = this.props
-    if (JSON.stringify(objContact.group) !== JSON.stringify(this.state.group)) {
-      updateListGroups(objContact, contacts)
-    }
-  }
-
   handlerButtonSave = () => {
     const { addContact, updateContact, contacts } = this.props
     const objContact = this.getObjectContact()
     if (this.state.nowUpdate) {
       updateContact(objContact)
-      updateListGroup(objContact)
     } else {
       addContact(objContact)
     }
@@ -145,72 +137,70 @@ class WindowAddContact extends React.Component {
     const { classes } = this.props
 
     return (
-      <div>
-        <Paper className={classes.root} elevation={10}>
-          <form className={classes.container} noValidate autoComplete="off">
-            <Grid container spacing={24} alignItems="center" className={classes.gridContainer}>
-              <Grid item xs={12} className={classes.header}>
-                <Typography className={classes.headerTitle} variant="title">
-                  New contact
-                </Typography>
-              </Grid>
-              <Grid item xs={1} className={classes.accountLogoContainer}>
-                <AccountCircle className={classes.accountLogo} />
-              </Grid>
-              <Grid item xs={11} className={classes.fields}>
-                <FieldsFillingName
-                  valueFirstName={this.state.firstName}
-                  valueMiddleName={this.state.middleName}
-                  valueLastName={this.state.lastName}
-                  handleChange={this.handleFormFields}
-                />
-              </Grid>
-              <Grid item xs={1}>
-                <Phone className={classes.icons} />
-              </Grid>
-              <Grid item xs={11} className={classes.fields}>
-                <FieldsFillingPhone
-                  phoneNumber={this.state.phoneNumber}
-                  phoneNumberClass={this.state.phoneNumberClass}
-                  handleChange={this.handleFormFields}
-                />
-              </Grid>
-              <Grid item xs={1}>
-                <DateRange className={classes.icons} />
-              </Grid>
-              <Grid item xs={11} className={classes.fields}>
-                <FieldsSelectDate
-                  birhtDate={this.state.birhtDate}
-                  handleChange={this.handleFormFields}
-                />
-              </Grid>
-              <Grid item xs={1}>
-                <People className={classes.icons} />
-              </Grid>
-              <Grid item xs={4} className={classes.SelectGroupContact}>
-                <SelectGroupContact
-                  group={this.state.group}
-                  handleChange={this.handleFormFields}
-                />
-              </Grid>
-              <Grid item xs={7}>
-                <SelectGender
-                  gender={this.state.gender}
-                  handleChange={this.handleFormFields}
-                />
-              </Grid>
-              <Grid item xs={12} container justify="flex-end" className={classes.fields}>
-                <Button color="secondary" className={classes.button} onClick={this.handlerButtonCancel}>
-                  Cancel
-                </Button>
-                <Button color="secondary" className={classes.button} onClick={this.handlerButtonSave}>
-                  Save
-                </Button>
-              </Grid>
+      <Paper className={classes.root} elevation={10}>
+        <form className={classes.container} noValidate autoComplete="off">
+          <Grid container spacing={24} alignItems="center" className={classes.gridContainer}>
+            <Grid item xs={12} className={classes.header}>
+              <Typography className={classes.headerTitle} variant="title">
+                New contact
+              </Typography>
             </Grid>
-          </form>
-        </Paper>
-      </div>
+            <Grid item xs={1} className={classes.accountLogoContainer}>
+              <AccountCircle className={classes.accountLogo} />
+            </Grid>
+            <Grid item xs={11} className={classes.fields}>
+              <FieldsFillingName
+                valueFirstName={this.state.firstName}
+                valueMiddleName={this.state.middleName}
+                valueLastName={this.state.lastName}
+                handleChange={this.handleFormFields}
+              />
+            </Grid>
+            <Grid item xs={1}>
+              <Phone className={classes.icons} />
+            </Grid>
+            <Grid item xs={11} className={classes.fields}>
+              <FieldsFillingPhone
+                phoneNumber={this.state.phoneNumber}
+                phoneNumberClass={this.state.phoneNumberClass}
+                handleChange={this.handleFormFields}
+              />
+            </Grid>
+            <Grid item xs={1}>
+              <DateRange className={classes.icons} />
+            </Grid>
+            <Grid item xs={11} className={classes.fields}>
+              <FieldsSelectDate
+                birhtDate={this.state.birhtDate}
+                handleChange={this.handleFormFields}
+              />
+            </Grid>
+            <Grid item xs={1}>
+              <People className={classes.icons} />
+            </Grid>
+            <Grid item xs={4} className={classes.SelectGroupContact}>
+              <SelectGroupContact
+                group={this.state.group}
+                handleChange={this.handleFormFields}
+              />
+            </Grid>
+            <Grid item xs={7}>
+              <SelectGender
+                gender={this.state.gender}
+                handleChange={this.handleFormFields}
+              />
+            </Grid>
+            <Grid item xs={12} container justify="flex-end" className={classes.fields}>
+              <Button color="secondary" className={classes.button} onClick={this.handlerButtonCancel}>
+                Cancel
+              </Button>
+              <Button color="secondary" className={classes.button} onClick={this.handlerButtonSave}>
+                Save
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Paper>
     )
   }
 }
@@ -222,4 +212,4 @@ WindowAddContact.propTypes = {
 
 export default connect((state) => ({
   contacts: state.contacts
-}), { addContact, updateContact, updateListGroups })(withStyles(styles)(WindowAddContact))
+}), { addContact, updateContact })(withStyles(styles)(WindowAddContact))

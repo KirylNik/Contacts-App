@@ -1,0 +1,1 @@
+export const GET_LIST_GROUPS = 'GET_LIST_GROUPS'

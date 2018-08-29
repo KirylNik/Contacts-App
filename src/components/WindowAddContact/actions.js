@@ -2,8 +2,7 @@ import fetchModule from '../../utils/fetchModuleForActions/fetchModuleForActions
 import {
   ADD_CONTACT,
   UPDATE_CONTACT,
-  SET_VIEWABLE_CONTACT,
-  UPDATE_LIST_GROUPS
+  SET_VIEWABLE_CONTACT
        } from './constants'
 
 export const addContact = objContact => dispatch => {
@@ -29,11 +28,4 @@ export const updateContact = objContact => dispatch => {
       type: UPDATE_CONTACT,
       payload: { objContact }
     }))
-}
-
-export const updateListGroups = (objContact, contacts) => {
-  return {
-    type: UPDATE_LIST_GROUPS,
-    payload: { objContact, contacts }
-  }
 }

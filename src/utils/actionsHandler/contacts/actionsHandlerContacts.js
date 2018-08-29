@@ -5,6 +5,7 @@ import changeStateFavorite from './changeStateFavorite'
 import sortContactsByFavorites from './sortContactsByFavorites'
 import getListAllContacts from './getListAllContacts'
 import searchContactsByName from './searchContactsByName'
+import sortContactsByGroup from './sortContactsByGroup'
 import {
   ADD_CONTACT,
   DELETE_CONTACT,
@@ -12,7 +13,8 @@ import {
   CHANGE_STATE_FAVORITE,
   SORT_CONTACTS_BY_FAVORITES,
   LIST_ALL_CONTACTS,
-  SEARCH_CONTACTS_BY_NAME
+  SEARCH_CONTACTS_BY_NAME,
+  SORT_CONTACTS_BY_GROUP
 } from './constants'
 
 const handlers = {
@@ -22,7 +24,8 @@ const handlers = {
   [CHANGE_STATE_FAVORITE]: changeStateFavorite,
   [SORT_CONTACTS_BY_FAVORITES]: sortContactsByFavorites,
   [LIST_ALL_CONTACTS]: getListAllContacts,
-  [SEARCH_CONTACTS_BY_NAME]: searchContactsByName
+  [SEARCH_CONTACTS_BY_NAME]: searchContactsByName,
+  [SORT_CONTACTS_BY_GROUP]: sortContactsByGroup
 }
 
 export default function actionsHandlerContacts(action, currentState) {

@@ -6,16 +6,16 @@ import './scss/base.scss'
 render(<Root />, document.getElementById('app'))
 
 // {(function () {
-//     const contactData = {
-//         "firstName":"Kiryl",
-//         "middleName":"Anatolevich",
-//         "lastName":"Nikalaichuk",
-//         "phones":[{"type":"Mobile","number":"123456789"}],
-//         "gender":"Male",
-//         "birhtDate": 1531809881239,
-//         "group":["friends","family"],
-//         "favourite":true
-//     }
+    // const contactData = {
+    //     "firstName":"Kiryl",
+    //     "middleName":"Anatolevich",
+    //     "lastName":"Nikalaichuk",
+    //     "phones":[{"type":"Mobile","number":"123456789"}],
+    //     "gender":"Male",
+    //     "birhtDate": 1531809881239,
+    //     "group":["friends","family"],
+    //     "favourite":true
+    // }
 
 //     postData(`http://localhost:8080/contact`, contactData)
 //       .then(data => console.log(data))
