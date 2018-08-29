@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Delete from '@material-ui/icons/Delete'
 import Edit from '@material-ui/icons/Edit'
 import Cancel from '@material-ui/icons/Cancel'
-import StarIcon from '../../icons/StarIcon'
+import IsFavoriteIcon from '../../icons/IsFavoriteIcon'
 import { styles } from './styles'
 
 function Header(props) {
@@ -32,7 +32,7 @@ function Header(props) {
         onClick={handlerButtonFavorite}
         data-id-contact={id}
       >
-        <StarIcon isActive={isFavorite} />
+        <IsFavoriteIcon isFavorite={isFavorite} />
       </IconButton>
       <IconButton className={classes.button}
         onClick={handlerButtonEdit}

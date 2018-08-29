@@ -1,12 +1,11 @@
+import fetchModule from '../../utils/fetchModuleForActions/fetchModuleForActions'
 import {
   DELETE_CONTACT,
   CHANGE_STATE_FAVORITE
 } from './constants'
 
 export const deleteContact = id => dispatch => {
-  fetch(`http://localhost:8080/contacts?ids=${id}`, {
-    method: 'DELETE',
-  })
+  fetchModule(`contacts?ids=${id}`, 'DELETE', null)
     .then(() => dispatch({
       type: DELETE_CONTACT,
       payload: { id }
@@ -18,14 +17,7 @@ export const changeStateFavorite = (id, favouriteState) => dispatch => {
   objContact.id = +id
   objContact.favourite = favouriteState
 
-  fetch('http://localhost:8080/contact', {
-    method: 'PUT',
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(objContact),
-  })
+  fetchModule(`contact`, 'PUT', null, objContact)
     .then(() => dispatch({
       type: CHANGE_STATE_FAVORITE,
       payload: { id }

@@ -1,13 +1,8 @@
 import setViewableContact from './setViewableContact'
-import hideWindowContactViewing from './hideWindowContactViewing'
-import {
-  SET_VIEWABLE_CONTACT,
-  HIDE_WINDOW_CONTACT_VIEWING
-} from './constants'
+import { SET_VIEWABLE_CONTACT } from '../../constants'
 
 const handlers = {
-  [SET_VIEWABLE_CONTACT]: setViewableContact,
-  [HIDE_WINDOW_CONTACT_VIEWING]: hideWindowContactViewing
+  [SET_VIEWABLE_CONTACT]: setViewableContact
 }
 
 export default function actionsHandlerViewableContact(action, currentState) {
@@ -16,6 +11,6 @@ export default function actionsHandlerViewableContact(action, currentState) {
   if (handlers[type]) {
     return handlers[type](action, currentState)
   } else {
-    return null
+    return currentState
   }
 }

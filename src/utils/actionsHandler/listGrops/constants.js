@@ -1,0 +1,3 @@
+export const GET_LIST_GROUPS = 'GET_LIST_GROUPS'
+
+export const UPDATE_LIST_GROUPS = 'UPDATE_LIST_GROUPS'

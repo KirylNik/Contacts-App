@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
-import Buttons from '../Bottons/Buttons'
+import Buttons from '../Buttons/Buttons'
 import { styles } from './styles'
 
 function SelectGroupContact(props) {

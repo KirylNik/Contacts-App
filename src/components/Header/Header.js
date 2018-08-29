@@ -12,17 +12,35 @@ import Search from '@material-ui/icons/Search'
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
-import { CHANGE_STATE_IS_OPEN_SIDEBAR } from './constants'
+import { getListAllContacts,
+         searchContactsByName,
+         changeStateIsOpenSidebar } from './actions'
 import { styles } from './styles'
 
 function AppHeader(props) {
   const { classes, handlerSidebar } = props
+  let throttleTimeoutFlag = false
+  let searchQuery;
 
   const hundlerShowSidebar = function () {
-    const { dispatch } = props
-    dispatch({
-      type: CHANGE_STATE_IS_OPEN_SIDEBAR
-    })
+    const { changeStateIsOpenSidebar } = props
+    changeStateIsOpenSidebar()
+  }
+
+  const handlerSearchInput = function (e) {
+    const { searchContactsByName, getListAllContacts } = props
+    searchQuery = e.target.value
+    
+    if (searchQuery === '') {
+      getListAllContacts()
+      throttleTimeoutFlag = false
+    } else if (searchQuery !== '' && !throttleTimeoutFlag) {
+      throttleTimeoutFlag = true
+      setTimeout(() => {
+          searchContactsByName(searchQuery)
+          throttleTimeoutFlag = false
+      }, 1000)
+    }
   }
 
   return (
@@ -64,6 +82,7 @@ function AppHeader(props) {
                       root: classes.cssInputSearch,
                       focused: classes.cssFocused,
                     }}
+                    onChange={handlerSearchInput}
                     id="field-search-contacts"
                   />
                 </FormControl>
@@ -80,4 +99,7 @@ AppHeader.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default connect()(withStyles(styles)(AppHeader))
+export default connect(null, { getListAllContacts,
+                               searchContactsByName,
+                               changeStateIsOpenSidebar
+                             })(withStyles(styles)(AppHeader))

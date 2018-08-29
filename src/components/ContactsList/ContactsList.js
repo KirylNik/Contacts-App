@@ -7,9 +7,9 @@ import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import BackgroundContactList from './BackgroundContactList/BackgroundContactList'
-import StarIcon from '../icons/StarIcon'
+import IsFavoriteIcon from '../icons/IsFavoriteIcon'
 import { withStyles } from '@material-ui/core/styles'
-import { getListAllContacts } from './actions'
+import { getListAllContacts, setViewableContact } from './actions'
 import { connect } from 'react-redux'
 import { styles } from './styles'
 
@@ -24,8 +24,8 @@ class UsersList extends React.Component {
     })
   }
 
-  getBackgroundContactList = () => {
-    if (!this.state.quantityDisplayContacts) {
+  getBackgroundContactList = (contacts) => {
+    if (!contacts.length) {
       const { showWindowAddContact } = this.props
       return <BackgroundContactList showWindowAddContact={showWindowAddContact} />
     }
@@ -46,14 +46,13 @@ class UsersList extends React.Component {
       const day = new Date(date).getDate()
       const month = new Date(date).getMonth()
       const year = new Date(date).getFullYear()
-      debugger
+
       return `${day}/${month + 1}/${year}`
     }
   }
 
   getNumberPhone = (phonesArr) => {
     const { classes } = this.props
-
     const arrPhonesElem = phonesArr.map((item) =>
       <Typography variant="title" className={classes.smallFontSize} key={Date.now()}>
         {`${item.type}: ${item.number}`}
@@ -77,6 +76,12 @@ class UsersList extends React.Component {
     changeContactFavorite(idContact, !stateFavourite)
   }
 
+  showWindowContactViewing = (e) => {
+    const { setViewableContact } = this.props
+    const idContact = e.currentTarget.dataset.idContact
+    setViewableContact(idContact)
+  }
+
   getListElem = (item) => {
     const { classes,
       deleteContact,
@@ -92,7 +97,10 @@ class UsersList extends React.Component {
           <Grid item xs={1}>
             <AccountCircle className={classes.accountLogo} />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={3} className={classes.nameContact}
+                            onClick={this.showWindowContactViewing}
+                            data-id-contact={item.id}
+          >
             <Typography variant="title">
               {`${item.firstName} ${item.lastName}`}
             </Typography>
@@ -121,7 +129,7 @@ class UsersList extends React.Component {
               data-id-contact={item.id}
               data-state-favourite={item.favourite}
             >
-              <StarIcon isActive={item.favourite} />
+              <IsFavoriteIcon isFavorite={item.favourite} />
             </IconButton>
             <IconButton className={classes.buttonContainer}
               onClick={this.handlerButtonEdit}
@@ -141,26 +149,24 @@ class UsersList extends React.Component {
     )
   }
 
-  componentWillReceiveProps = () => {
-    const { contacts } = this.props
-    this.setQuantityDisplayContacts(contacts.length - 1)
-  }
-
   componentWillMount = () => {
     const { contacts, getListAllContacts } = this.props
     getListAllContacts()
-    this.setQuantityDisplayContacts(contacts.length)
   }
 
   render() {
     const { classes, contacts } = this.props
+    const backgroundContactList = this.getBackgroundContactList(contacts)
 
     if (!contacts.length) {
-      return null
+      return (
+        <div className={classes.root}>
+          {backgroundContactList}
+        </div>
+      )
     }
 
     const listElem = contacts.map(this.getListElem)
-    const backgroundContactList = this.getBackgroundContactList()
 
     return (
       <div className={classes.root}>
@@ -179,4 +185,4 @@ UsersList.propTypes = {
 
 export default connect((state) => ({
   contacts: state.contacts
-}), { getListAllContacts })(withStyles(styles)(UsersList))
+}), { getListAllContacts, setViewableContact })(withStyles(styles)(UsersList))

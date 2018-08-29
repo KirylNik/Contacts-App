@@ -46,31 +46,29 @@ class MainBlock extends React.Component {
     const listGroups = this.getListGroups()
 
     return (
-      <div className={classes.root}>
-        <List component="nav">
-          <ListItem button onClick={this.handlerButtonContacts}>
-            <ListItemIcon>
-              <ContactsIcon />
-            </ListItemIcon>
-            <ListItemText inset primary="Contacts" />
-          </ListItem>
-          <ListItem button onClick={this.handlerButtonFavorites}>
-            <ListItemIcon>
-              <StarBorderIcon />
-            </ListItemIcon>
-            <ListItemText inset primary="Favorites" />
-          </ListItem>
-          <ListItem button onClick={this.handleClick}>
-            <ListItemText inset primary="Groups" />
-            {this.state.open ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              {listGroups}
-            </List>
-          </Collapse>
-        </List>
-      </div>
+      <List component="nav" className={classes.root}>
+        <ListItem button onClick={this.handlerButtonContacts}>
+          <ListItemIcon>
+            <ContactsIcon />
+          </ListItemIcon>
+          <ListItemText inset primary="Contacts" />
+        </ListItem>
+        <ListItem button onClick={this.handlerButtonFavorites}>
+          <ListItemIcon>
+            <StarBorderIcon />
+          </ListItemIcon>
+          <ListItemText inset primary="Favorites" />
+        </ListItem>
+        <ListItem button onClick={this.handleClick}>
+          <ListItemText inset primary="Groups" />
+          {this.state.open ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            {listGroups}
+          </List>
+        </Collapse>
+      </List>
     )
   }
 }
@@ -79,4 +77,6 @@ MainBlock.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default connect()(withStyles(styles)(MainBlock))
+export default connect((state) => ({
+  listGrops: state.listGrops
+}))(withStyles(styles)(MainBlock))

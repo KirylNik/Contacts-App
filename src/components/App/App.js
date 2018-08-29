@@ -8,7 +8,7 @@ import WindowContactViewing from '../WindowContactViewing/WindowContactViewing'
 import ContactsList from '../ContactsList/ContactsList'
 import { connect } from 'react-redux'
 import { deleteContact, changeStateFavorite } from './actions'
-import { HIDE_WINDOW_CONTACT_VIEWING } from './constants'
+import { SET_VIEWABLE_CONTACT } from './constants'
 
 class App extends Component {
   state = {
@@ -22,7 +22,8 @@ class App extends Component {
     const { dispatch } = this.props
 
     dispatch({
-      type: HIDE_WINDOW_CONTACT_VIEWING
+      type: SET_VIEWABLE_CONTACT,
+      payload: { id: null }
     })
     this.setState({
       windowAddContactIsShow: true,
@@ -40,7 +41,8 @@ class App extends Component {
     const idDeleteContact = e.currentTarget.dataset.idContact
     const { dispatch } = this.props
     dispatch({
-      type: HIDE_WINDOW_CONTACT_VIEWING
+      type: SET_VIEWABLE_CONTACT,
+      payload: { id: null }
     })
     dispatch(deleteContact(idDeleteContact))
   }

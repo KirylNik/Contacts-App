@@ -15,7 +15,7 @@ import DateRange from '@material-ui/icons/DateRange'
 import People from '@material-ui/icons/People'
 import Button from '@material-ui/core/Button'
 import { connect } from 'react-redux'
-import { addContact, updateContact } from './actions'
+import { addContact, updateContact, updateListGroups } from './actions'
 import { styles } from './styles'
 
 class WindowAddContact extends React.Component {
@@ -94,11 +94,19 @@ class WindowAddContact extends React.Component {
     return objContact
   }
 
+  updateListGroup = (objContact) => {
+    const { updateListGroups, contacts } = this.props
+    if (JSON.stringify(objContact.group) !== JSON.stringify(this.state.group)) {
+      updateListGroups(objContact, contacts)
+    }
+  }
+
   handlerButtonSave = () => {
-    const { addContact, updateContact } = this.props
+    const { addContact, updateContact, contacts } = this.props
     const objContact = this.getObjectContact()
     if (this.state.nowUpdate) {
       updateContact(objContact)
+      updateListGroup(objContact)
     } else {
       addContact(objContact)
     }
@@ -144,7 +152,7 @@ class WindowAddContact extends React.Component {
               <Grid item xs={12} className={classes.header}>
                 <Typography className={classes.headerTitle} variant="title">
                   New contact
-                                </Typography>
+                </Typography>
               </Grid>
               <Grid item xs={1} className={classes.accountLogoContainer}>
                 <AccountCircle className={classes.accountLogo} />
@@ -194,10 +202,10 @@ class WindowAddContact extends React.Component {
               <Grid item xs={12} container justify="flex-end" className={classes.fields}>
                 <Button color="secondary" className={classes.button} onClick={this.handlerButtonCancel}>
                   Cancel
-                                </Button>
+                </Button>
                 <Button color="secondary" className={classes.button} onClick={this.handlerButtonSave}>
                   Save
-                                </Button>
+                </Button>
               </Grid>
             </Grid>
           </form>
@@ -214,4 +222,4 @@ WindowAddContact.propTypes = {
 
 export default connect((state) => ({
   contacts: state.contacts
-}), { addContact, updateContact })(withStyles(styles)(WindowAddContact))
+}), { addContact, updateContact, updateListGroups })(withStyles(styles)(WindowAddContact))

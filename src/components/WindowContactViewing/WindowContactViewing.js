@@ -10,7 +10,7 @@ import DateRange from '@material-ui/icons/DateRange'
 import People from '@material-ui/icons/People'
 import WC from '@material-ui/icons/Wc'
 import { connect } from 'react-redux'
-import { HIDE_WINDOW_CONTACT_VIEWING } from './constants'
+import { SET_VIEWABLE_CONTACT } from './constants'
 import { styles } from './styles'
 
 function WindowContactViewing(props) {
@@ -18,13 +18,15 @@ function WindowContactViewing(props) {
 
   if (!idContact) return null
 
-  const arrContact = contacts.filter(item => item.id === idContact)
+  const arrContact = contacts.filter(item => item.id == idContact)
   const objContact = arrContact[0]
 
   const closeThisWindow = function () {
     const { dispatch } = props
+    
     dispatch({
-      type: HIDE_WINDOW_CONTACT_VIEWING
+      type: SET_VIEWABLE_CONTACT,
+      payload: { id: null }
     })
   }
 
@@ -68,19 +70,19 @@ function WindowContactViewing(props) {
     <div>
       <Paper className={classes.root} elevation={10}>
         <Header firstName={objContact.firstName}
-          lastName={objContact.lastName}
-          id={objContact.id}
-          isFavorite={objContact.favourite}
-          closeThisWindow={closeThisWindow}
-          deleteContact={deleteContact}
-          handlerButtonEdit={handlerButtonEdit}
-          handlerButtonFavorite={handlerButtonFavorite}
+                lastName={objContact.lastName}
+                id={objContact.id}
+                isFavorite={objContact.favourite}
+                closeThisWindow={closeThisWindow}
+                deleteContact={deleteContact}
+                handlerButtonEdit={handlerButtonEdit}
+                handlerButtonFavorite={handlerButtonFavorite}
         />
         <Grid container spacing={16} alignItems="center" className={classes.gridContainer}>
           <Grid item xs={12} className={classes.userInfoTitleContainer}>
             <Typography className={classes.userInfoTitle} variant="title">
               Contact Details
-                        </Typography>
+          </Typography>
           </Grid>
           <Grid item xs={2} className={classes.iconsContainer}>
             <Phone className={classes.icons} />

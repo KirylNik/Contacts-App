@@ -1,18 +1,13 @@
+import fetchModule from '../../utils/fetchModuleForActions/fetchModuleForActions'
 import {
   ADD_CONTACT,
   UPDATE_CONTACT,
-  SET_VIEWABLE_CONTACT
-} from './constants'
+  SET_VIEWABLE_CONTACT,
+  UPDATE_LIST_GROUPS
+       } from './constants'
 
 export const addContact = objContact => dispatch => {
-  fetch('http://localhost:8080/contact', {
-    method: 'POST',
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(objContact),
-  })
+  fetchModule(`contact`, 'POST', null, objContact)
     .then(res => res.json())
     .then(response => {
       dispatch({
@@ -29,16 +24,16 @@ export const addContact = objContact => dispatch => {
 }
 
 export const updateContact = objContact => dispatch => {
-  fetch('http://localhost:8080/contact', {
-    method: 'PUT',
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(objContact),
-  })
+  fetchModule(`contact`, 'PUT', null, objContact)
     .then(() => dispatch({
       type: UPDATE_CONTACT,
       payload: { objContact }
     }))
+}
+
+export const updateListGroups = (objContact, contacts) => {
+  return {
+    type: UPDATE_LIST_GROUPS,
+    payload: { objContact, contacts }
+  }
 }

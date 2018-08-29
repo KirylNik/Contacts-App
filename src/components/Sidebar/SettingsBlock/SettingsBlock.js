@@ -21,27 +21,25 @@ class SettingsBlock extends React.Component {
   }
 
   render() {
-    const { classes} = this.props;
+    const { classes } = this.props;
 
     return (
-      <div className={classes.root}>
-        <List component="nav">
-          <ListItem button onClick={this.handleClick}>
-            <ListItemText inset primary="Settings" />
-            {this.state.open ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemIcon>
-                  <SettingsApplicationsIcon />
-                </ListItemIcon>
-                <ListItemText inset primary="Some settings" />
-              </ListItem>
-            </List>
-          </Collapse>
-        </List>
-      </div>
+      <List component="nav" className={classes.root}>
+        <ListItem button onClick={this.handleClick}>
+          <ListItemText inset primary="Settings" />
+          {this.state.open ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItem button className={classes.nested}>
+              <ListItemIcon>
+                <SettingsApplicationsIcon />
+              </ListItemIcon>
+              <ListItemText inset primary="Some settings" />
+            </ListItem>
+          </List>
+        </Collapse>
+      </List>
     );
   }
 }

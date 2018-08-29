@@ -6,21 +6,19 @@ import AddCircle from '@material-ui/icons/AddCircle'
 import RemoveCircle from '@material-ui/icons/RemoveCircle'
 import { styles } from './styles'
 
+const icons = {
+  add: <AddCircle />,
+  remove: <RemoveCircle />
+}
+
 function Buttons(props) {
   const { classes, type } = props
-  if (type == 'add') {
-    return (
-      <IconButton className={classes.button} color="secondary" aria-label="Add">
-        <AddCircle />
-      </IconButton>
-    )
-  } else if (type == 'remove') {
-    return (
-      <IconButton className={classes.button} color="secondary" aria-label="Delete">
-        <RemoveCircle />
-      </IconButton>
-    )
-  }
+  
+  return (
+    <IconButton className={classes.button} color="secondary">
+      {icons[type]}
+    </IconButton>
+  )
 }
 
 Buttons.propTypes = {
