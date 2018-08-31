@@ -26,14 +26,14 @@ function WindowContactViewing(props) {
     
     dispatch({
       type: SET_VIEWABLE_CONTACT,
-      payload: { id: null }
+      payload: { idContact: null }
     })
   }
 
   const handlerButtonEdit = function (e) {
     const { showWindowAddContact } = props
     const idContact = e.currentTarget.dataset.idContact
-    showWindowAddContact(idContact)
+    showWindowAddContact({idContact})
   }
 
   const handlerButtonFavorite = function (e) {

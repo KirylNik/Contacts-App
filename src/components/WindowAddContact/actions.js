@@ -18,7 +18,7 @@ export const addContact = objContact => dispatch => {
     })
     .then(response => dispatch({
       type: SET_VIEWABLE_CONTACT,
-      payload: { id: response.id }
+      payload: { idContact: response.id }
     }))
 }
 

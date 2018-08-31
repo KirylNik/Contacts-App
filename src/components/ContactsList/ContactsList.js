@@ -9,7 +9,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import BackgroundContactList from './BackgroundContactList/BackgroundContactList'
 import IsFavoriteIcon from '../icons/IsFavoriteIcon'
 import { withStyles } from '@material-ui/core/styles'
-import { getListAllContacts, setViewableContact } from './actions'
+import { getListAllContacts } from './actions/getListAllContacts'
+import { setViewableContact } from './actions/setViewableContact'
 import { connect } from 'react-redux'
 import { styles } from './styles'
 
@@ -65,7 +66,7 @@ class UsersList extends React.Component {
   handlerButtonEdit = (e) => {
     const { showWindowAddContact } = this.props
     const idContact = e.currentTarget.dataset.idContact
-    showWindowAddContact(idContact)
+    showWindowAddContact({idContact})
   }
 
   handlerButtonFavorite = (e) => {
@@ -179,8 +180,6 @@ class UsersList extends React.Component {
 
 UsersList.propTypes = {
   classes: PropTypes.object.isRequired,
-  // from connect:
-  //   contacts: PropTypes.array
 }
 
 export default connect((state) => ({

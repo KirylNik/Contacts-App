@@ -7,8 +7,10 @@ import Grid from '@material-ui/core/Grid'
 import WindowContactViewing from '../WindowContactViewing/WindowContactViewing'
 import ContactsList from '../ContactsList/ContactsList'
 import { connect } from 'react-redux'
-import { deleteContact, changeStateFavorite, getListGroups } from './actions'
-import { SET_VIEWABLE_CONTACT, GET_LIST_GROUP } from './constants'
+import { setViewableContact } from './actions/setViewableContact'
+import { changeStateFavorite } from './actions/changeStateFavorite'
+import { getListGroups } from './actions/getListGroups'
+import { deleteContact } from './actions/deleteContact'
 
 class App extends Component {
   state = {
@@ -16,18 +18,13 @@ class App extends Component {
     idViewedContact: null,
     idEditableContact: null
   }
-
-  showWindowAddContact = (arg) => {
-    const id = typeof arg == 'string' ? arg : null
-    const { dispatch } = this.props
-
-    dispatch({
-      type: SET_VIEWABLE_CONTACT,
-      payload: { id: null }
-    })
+  
+  showWindowAddContact = ({ idContact }) => {
+    const { setViewableContact } = this.props
+    setViewableContact(null)
     this.setState({
       windowAddContactIsShow: true,
-      idEditableContact: id
+      idEditableContact: idContact
     })
   }
 
@@ -38,36 +35,30 @@ class App extends Component {
   }
 
   handlerButtonDeleteContact = (e) => {
+    const { setViewableContact, deleteContact } = this.props
     const idDeleteContact = e.currentTarget.dataset.idContact
-    const { dispatch } = this.props
-    dispatch({
-      type: SET_VIEWABLE_CONTACT,
-      payload: { id: null }
-    })
-    dispatch(deleteContact(idDeleteContact))
+    setViewableContact(null)
+    deleteContact(idDeleteContact)
   }
 
   changeContactFavorite = (id, stateFavourite) => {
-    const { dispatch } = this.props
-    dispatch(changeStateFavorite(id, stateFavourite))
+    const { changeStateFavorite } = this.props
+    changeStateFavorite(id, stateFavourite)
   }
 
-  getWindowAddContact = () => {
-    if (this.state.windowAddContactIsShow) {
-      return (
-        <WindowAddContact handlerClose={this.closeWindowAddContact}
+  getWindowAddContact = () =>
+    this.state.windowAddContactIsShow
+      ? <WindowAddContact 
+          handlerClose={this.closeWindowAddContact}
           showWindowContactInfo={this.showWindowContactInfo}
           idEditableContact={this.state.idEditableContact}
         />
-      )
-    } else {
-      return null
-    }
-  }
+      :null
+  
 
   componentWillMount() {
-    const { dispatch } = this.props
-    dispatch(getListGroups())
+    const { getListGroups } = this.props
+    getListGroups()
   }
 
   render() {
@@ -83,24 +74,29 @@ class App extends Component {
             <Sidebar />
           </Grid>
           <Grid item xs={9}>
-            <ContactsList deleteContact={this.handlerButtonDeleteContact}
-                          showWindowAddContact={this.showWindowAddContact}
-                          changeContactFavorite={this.changeContactFavorite}
+            <ContactsList 
+              deleteContact={this.handlerButtonDeleteContact}
+              showWindowAddContact={this.showWindowAddContact}
+              changeContactFavorite={this.changeContactFavorite}
             />
           </Grid>
         </Grid>
-        {this.getWindowAddContact()}
-        <WindowContactViewing idContact={this.state.idViewedContact}
-                              deleteContact={this.handlerButtonDeleteContact}
-                              changeContactFavorite={this.changeContactFavorite}
-                              showWindowAddContact={this.showWindowAddContact}
+        <WindowContactViewing 
+          idContact={this.state.idViewedContact}
+          deleteContact={this.handlerButtonDeleteContact}
+          changeContactFavorite={this.changeContactFavorite}
+          showWindowAddContact={this.showWindowAddContact}
         />
         <div onClick={this.showWindowAddContact}>
           <ButtonAddContact />
         </div>
+        {this.getWindowAddContact()}
       </div>
     )
   }
 }
 
-export default connect()(App)
+export default connect(null, { setViewableContact,
+                               getListGroups,
+                               changeStateFavorite,
+                               deleteContact })(App)
