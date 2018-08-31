@@ -1,5 +1,5 @@
-import fetchModule from '../../utils/fetchModuleForActions/fetchModuleForActions'
-import { LIST_ALL_CONTACTS } from './constants'
+import fetchModule from '../../../utils/fetchModuleForActions/fetchModuleForActions'
+import { LIST_ALL_CONTACTS } from '../constants'
 
 export const getListAllContacts = () => dispatch => {
   fetchModule(`contacts`, 'GET', null)

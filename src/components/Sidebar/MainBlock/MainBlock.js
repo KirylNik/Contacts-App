@@ -11,14 +11,14 @@ import ContactsIcon from '@material-ui/icons/Contacts'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import ItemListGroup from '../ItemListGroup/ItemListGroup'
-import { getListAllContacts } from '../actions'
+import { getListAllContacts } from './actions'
 import { connect } from 'react-redux'
 import { SORT_CONTACTS_BY_FAVORITES } from '../constants'
 import { styles } from './styles'
 
 class MainBlock extends React.Component {
   state = {
-    open: false,
+    open: false
   }
 
   handlerButtonFavorites = () => {
@@ -34,21 +34,22 @@ class MainBlock extends React.Component {
   }
 
   handleClick = () => {
-    this.setState(state => ({ open: !state.open }));
+    this.setState({ open: !this.state.open });
   }
 
   getListGroups = () => {
     const { groups } = this.props
-    return groups.map((item) =>
-                        <ItemListGroup itemName={item.name}
-                                       countContacts={2}
-                                       key={item.id}
-                        />
-                      )
+    return groups.map((item) => 
+      <ItemListGroup 
+        itemName={item.name}
+        countContacts={2}
+        key={item.id}
+      />
+    )
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props
     const listGroups = this.getListGroups()
 
     return (

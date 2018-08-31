@@ -1,0 +1,1 @@
+export const getTypeGroup = groupsArr => groupsArr ? groupsArr.join() : ''

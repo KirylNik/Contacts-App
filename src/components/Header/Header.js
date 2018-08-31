@@ -12,35 +12,24 @@ import Search from '@material-ui/icons/Search'
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
-import { getListAllContacts,
-         searchContactsByName,
-         changeStateIsOpenSidebar } from './actions'
+import { throttleCall } from './utils/throttleCall'
+import { changeStateIsOpenSidebar } from './actions/changeStateIsOpenSidebar'
+import { searchContactsByName } from './actions/searchContactsByName'
+import { getListAllContacts } from './actions/getListAllContacts'
 import { styles } from './styles'
 
 function AppHeader(props) {
   const { classes, handlerSidebar } = props
-  let throttleTimeoutFlag = false
-  let searchQuery;
 
   const hundlerShowSidebar = function () {
     const { changeStateIsOpenSidebar } = props
     changeStateIsOpenSidebar()
   }
 
-  const handlerSearchInput = function (e) {
+  const handlerSearchField = function (e) {
     const { searchContactsByName, getListAllContacts } = props
-    searchQuery = e.target.value
-    
-    if (searchQuery === '') {
-      getListAllContacts()
-      throttleTimeoutFlag = false
-    } else if (searchQuery !== '' && !throttleTimeoutFlag) {
-      throttleTimeoutFlag = true
-      setTimeout(() => {
-          searchContactsByName(searchQuery)
-          throttleTimeoutFlag = false
-      }, 1000)
-    }
+    const searchQuery = e.target.value
+    throttleCall(searchQuery, getListAllContacts, searchContactsByName, 1000)
   }
 
   return (
@@ -50,10 +39,11 @@ function AppHeader(props) {
           <Grid item xs={1}></Grid>
           <Grid item xs={2} className={classes.sectionMenu}>
             <div onClick={handlerSidebar}>
-              <IconButton className={classes.menuButton}
-                          color="inherit"
-                          aria-label="Menu"
-                          onClick={hundlerShowSidebar}
+              <IconButton 
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="Menu"
+                onClick={hundlerShowSidebar}
               >
                 <MenuIcon />
               </IconButton>
@@ -67,22 +57,22 @@ function AppHeader(props) {
               <Search className={classes.searchIcon} />
               <FormControl className={classes.searchForm}>
                 <InputLabel
+                  htmlFor="field-search-contacts"
                   FormLabelClasses={{
                     root: classes.cssLabel,
                     focused: classes.cssFocused,
                   }}
-                  htmlFor="field-search-contacts"
                 >
                   Search
                 </InputLabel>
                 <Input
+                  id="field-search-contacts"
+                  onChange={handlerSearchField}
                   classes={{
                     underline: classes.cssUnderline,
                     root: classes.cssInputSearch,
                     focused: classes.cssFocused,
                   }}
-                  onChange={handlerSearchInput}
-                  id="field-search-contacts"
                 />
               </FormControl>
             </div>

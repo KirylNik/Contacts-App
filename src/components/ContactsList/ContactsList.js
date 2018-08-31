@@ -8,6 +8,8 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import BackgroundContactList from './BackgroundContactList/BackgroundContactList'
 import IsFavoriteIcon from '../icons/IsFavoriteIcon'
+import { getDate } from './utils/getDate'
+import { getTypeGroup } from './utils/getTypeGroup'
 import { withStyles } from '@material-ui/core/styles'
 import { getListAllContacts } from './actions/getListAllContacts'
 import { setViewableContact } from './actions/setViewableContact'
@@ -32,37 +34,6 @@ class UsersList extends React.Component {
     }
   }
 
-  getTypeGroup = (groupsArr) => {
-    if (!groupsArr) {
-      return ''
-    } else {
-      return groupsArr.join()
-    }
-  }
-
-  getDate = (date) => {
-    if (!date) {
-      return ''
-    } else {
-      const day = new Date(date).getDate()
-      const month = new Date(date).getMonth()
-      const year = new Date(date).getFullYear()
-
-      return `${day}/${month + 1}/${year}`
-    }
-  }
-
-  getNumberPhone = (phonesArr) => {
-    const { classes } = this.props
-    const arrPhonesElem = phonesArr.map((item) =>
-      <Typography variant="title" className={classes.smallFontSize} key={Date.now()}>
-        {`${item.type}: ${item.number}`}
-      </Typography>
-    )
-
-    return arrPhonesElem
-  }
-
   handlerButtonEdit = (e) => {
     const { showWindowAddContact } = this.props
     const idContact = e.currentTarget.dataset.idContact
@@ -73,6 +44,7 @@ class UsersList extends React.Component {
     const { changeContactFavorite } = this.props
     const idContact = e.currentTarget.dataset.idContact
     const stateFavourite = e.currentTarget.dataset.stateFavourite === 'false' ? false : true
+
     e.currentTarget.dataset.stateFavourite = !stateFavourite
     changeContactFavorite(idContact, !stateFavourite)
   }
@@ -83,13 +55,26 @@ class UsersList extends React.Component {
     setViewableContact(idContact)
   }
 
-  getListElem = (item) => {
-    const { classes,
-      deleteContact,
-    } = this.props
-    return (
-      <div key={item.id}>
-        <Grid container spacing={8} alignItems="center">
+  getNumberPhone = (phonesArr) => {
+    const { classes } = this.props
+    const arrPhonesElem = phonesArr.map((item) =>
+      <Typography
+        variant="title"
+        className={classes.smallFontSize}
+        key={Date.now()}
+      >
+        {`${item.type}: ${item.number}`}
+      </Typography>
+    )
+
+    return arrPhonesElem
+  }
+
+  getListElem = (contacts) => {
+    const { classes, deleteContact } = this.props
+    if (contacts.length) {
+      return contacts.map((item) =>
+        <Grid container spacing={8} alignItems="center" key={item.id}>
           <Grid item xs={1}>
             <Typography variant="title" className={classes.capitalLetter}>
               {item.firstName[0].toUpperCase()}
@@ -98,25 +83,26 @@ class UsersList extends React.Component {
           <Grid item xs={1}>
             <AccountCircle className={classes.accountLogo} />
           </Grid>
-          <Grid item xs={3} className={classes.nameContact}
-                            onClick={this.showWindowContactViewing}
-                            data-id-contact={item.id}
+          <Grid item xs={3} 
+            className={classes.nameContact}
+            onClick={this.showWindowContactViewing}
+            data-id-contact={item.id}
           >
             <Typography variant="title">
               {`${item.firstName} ${item.lastName}`}
             </Typography>
           </Grid>
           <Grid item xs={3}>
-            {this.getNumberPhone(item.phones)}
+            {this.getNumberPhone(item.phones, classes)}
           </Grid>
           <Grid item xs={1}>
             <Typography variant="title" className={classes.smallFontSize}>
-              {this.getDate(item.birhtDate)}
+              {getDate(item.birhtDate)}
             </Typography>
           </Grid>
           <Grid item xs={1}>
             <Typography variant="title" className={classes.smallFontSize}>
-              {this.getTypeGroup(item.group)}
+              {getTypeGroup(item.group)}
             </Typography>
           </Grid>
           <Grid item xs={1}>
@@ -125,20 +111,23 @@ class UsersList extends React.Component {
             </Typography>
           </Grid>
           <Grid item xs={1}>
-            <IconButton className={classes.buttonContainer}
+            <IconButton
+              className={classes.buttonContainer}
               onClick={this.handlerButtonFavorite}
               data-id-contact={item.id}
               data-state-favourite={item.favourite}
             >
               <IsFavoriteIcon isFavorite={item.favourite} />
             </IconButton>
-            <IconButton className={classes.buttonContainer}
+            <IconButton
+              className={classes.buttonContainer}
               onClick={this.handlerButtonEdit}
               data-id-contact={item.id}
             >
               <EditIcon className={classes.button} />
             </IconButton>
-            <IconButton className={classes.buttonContainer}
+            <IconButton
+              className={classes.buttonContainer}
               onClick={deleteContact}
               data-id-contact={item.id}
             >
@@ -146,8 +135,8 @@ class UsersList extends React.Component {
             </IconButton>
           </Grid>
         </Grid>
-      </div>
-    )
+      )
+    }
   }
 
   componentWillMount = () => {
@@ -158,21 +147,12 @@ class UsersList extends React.Component {
   render() {
     const { classes, contacts } = this.props
     const backgroundContactList = this.getBackgroundContactList(contacts)
-
-    if (!contacts.length) {
-      return (
-        <div className={classes.root}>
-          {backgroundContactList}
-        </div>
-      )
-    }
-
-    const listElem = contacts.map(this.getListElem)
+    const listElem = this.getListElem(contacts)
 
     return (
       <div className={classes.root}>
-        {listElem}
         {backgroundContactList}
+        {listElem}
       </div>
     )
   }

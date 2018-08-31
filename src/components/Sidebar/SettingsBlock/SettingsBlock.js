@@ -13,15 +13,15 @@ import { styles } from './styles'
 
 class SettingsBlock extends React.Component {
   state = {
-    open: false,
+    open: false
   }
 
   handleClick = () => {
-    this.setState(state => ({ open: !state.open }));
+    this.setState({ open: !this.state.open })
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props
 
     return (
       <List component="nav" className={classes.root}>
@@ -40,7 +40,7 @@ class SettingsBlock extends React.Component {
           </List>
         </Collapse>
       </List>
-    );
+    )
   }
 }
 

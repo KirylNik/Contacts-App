@@ -5,7 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 import Delete from '@material-ui/icons/Delete'
 import Edit from '@material-ui/icons/Edit'
-import { SORT_CONTACTS_BY_GROUP } from '../constants'
+import { sortContactsByGroup } from './actions'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import { styles } from './styles'
@@ -17,12 +17,9 @@ function ItemListGroup(props) {
         } = props
   
   const handlerClickOnGroup = function name(e) {
-    const { dispatch } = props
+    const { sortContactsByGroup } = props
     const targetGroup = e.currentTarget.dataset.groupName
-    dispatch({
-      type: SORT_CONTACTS_BY_GROUP,
-      payload: {targetGroup}
-    })
+    sortContactsByGroup(targetGroup)
   }
 
   return (
@@ -44,4 +41,4 @@ ItemListGroup.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default connect()(withStyles(styles)(ItemListGroup))
+export default connect(null, { sortContactsByGroup })(withStyles(styles)(ItemListGroup))
