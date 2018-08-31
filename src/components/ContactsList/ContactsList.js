@@ -8,8 +8,9 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import BackgroundContactList from './BackgroundContactList/BackgroundContactList'
 import IsFavoriteIcon from '../icons/IsFavoriteIcon'
-import { getDate } from './utils/getDate'
-import { getTypeGroup } from './utils/getTypeGroup'
+import { getDate } from '../../utils/gettersOfDataTypes/getDate'
+import { getTypeGroup } from '../../utils/gettersOfDataTypes/getTypeGroup'
+import { getNumberPhone } from '../../utils/gettersOfDataTypes/getNumberPhone'
 import { withStyles } from '@material-ui/core/styles'
 import { getListAllContacts } from './actions/getListAllContacts'
 import { setViewableContact } from './actions/setViewableContact'
@@ -93,7 +94,7 @@ class UsersList extends React.Component {
             </Typography>
           </Grid>
           <Grid item xs={3}>
-            {this.getNumberPhone(item.phones, classes)}
+            {getNumberPhone(item.phones, classes.smallFontSize)}
           </Grid>
           <Grid item xs={1}>
             <Typography variant="title" className={classes.smallFontSize}>

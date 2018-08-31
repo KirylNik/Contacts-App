@@ -1,8 +1,5 @@
 import Grey from '@material-ui/core/colors/grey'
 
-const headerBackground = Grey[300]
-const headerTextColor = Grey[500]
-
 export const styles = theme => ({
   root: {
     height: 'auto',
@@ -12,10 +9,10 @@ export const styles = theme => ({
     top: '15%',
   },
   header: {
-    background: headerBackground,
+    background: Grey[300],
   },
   headerTitle: {
-    color: headerTextColor,
+    color: Grey[500],
     paddingLeft: theme.spacing.unit * 2,
   },
   gridContainer: {

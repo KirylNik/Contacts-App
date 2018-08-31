@@ -13,7 +13,7 @@ const icons = {
 
 function Buttons(props) {
   const { classes, type } = props
-  
+
   return (
     <IconButton className={classes.button} color="secondary">
       {icons[type]}

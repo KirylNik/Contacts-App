@@ -1,9 +1,9 @@
 import React from 'react'
+import store from '../store'
+import App from './App/App'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { withTheme } from '@material-ui/core/styles'
-import store from '../store'
 import { Provider } from 'react-redux'
-import App from './App/App'
 
 const theme = createMuiTheme({
   palette: {

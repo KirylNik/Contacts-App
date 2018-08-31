@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
+import { withStyles } from '@material-ui/core/styles'
 import { styles } from './styles'
 
 function FieldsSelectDate(props) {
@@ -11,21 +11,20 @@ function FieldsSelectDate(props) {
   } = props
 
   return (
-    <div className={classes.container}>
-      <TextField
-        required
-        id="date"
-        label="Date of birth"
-        type="date"
-        fullWidth={true}
-        className={classes.textField}
-        value={birhtDate}
-        onChange={handleChange('birhtDate')}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-    </div>
+    <TextField
+      className={classes.container}
+      required
+      id="date"
+      label="Date of birth"
+      type="date"
+      fullWidth={true}
+      className={classes.textField}
+      value={birhtDate}
+      onChange={handleChange('birhtDate')}
+      InputLabelProps={{
+        shrink: true,
+      }}
+    />
   )
 }
 

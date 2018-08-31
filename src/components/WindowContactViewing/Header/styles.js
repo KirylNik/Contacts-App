@@ -1,9 +1,8 @@
 import Grey from '@material-ui/core/colors/grey'
 
-const headerBackground = Grey[300]
 export const styles = theme => ({
   root: {
-    background: headerBackground,
+    background: Grey[300],
     display: 'flex',
     alignItems: 'center',
   },

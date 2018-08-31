@@ -9,25 +9,22 @@ import Phone from '@material-ui/icons/Phone'
 import DateRange from '@material-ui/icons/DateRange'
 import People from '@material-ui/icons/People'
 import WC from '@material-ui/icons/Wc'
+import { getArrayElemByID } from '../../utils/getArrayElemByID'
+import { getDate } from '../../utils/gettersOfDataTypes/getDate'
+import { getTypeGroup } from '../../utils/gettersOfDataTypes/getTypeGroup'
+import { getNumberPhone } from '../../utils/gettersOfDataTypes/getNumberPhone'
 import { connect } from 'react-redux'
-import { SET_VIEWABLE_CONTACT } from './constants'
+import { setViewableContact } from './actions'
 import { styles } from './styles'
 
 function WindowContactViewing(props) {
   const { classes, idContact, contacts, deleteContact } = props
-
   if (!idContact) return null
-
-  const arrContact = contacts.filter(item => item.id == idContact)
-  const objContact = arrContact[0]
+  const objContact = getArrayElemByID(contacts, idContact)
 
   const closeThisWindow = function () {
-    const { dispatch } = props
-    
-    dispatch({
-      type: SET_VIEWABLE_CONTACT,
-      payload: { idContact: null }
-    })
+    const { setViewableContact } = props
+    setViewableContact(null)
   }
 
   const handlerButtonEdit = function (e) {
@@ -42,40 +39,17 @@ function WindowContactViewing(props) {
     changeContactFavorite(idContact)
   }
 
-  const getDate = function (date) {
-    if (!date) {
-      return ''
-    } else {
-      const day = new Date(date).getDate()
-      const month = new Date(date).getMonth()
-      const year = new Date(date).getFullYear()
-
-      return `${day}/${month + 1}/${year}`
-    }
-  }
-
-  const getNumberPhone = function (phonesArr) {
-    const { classes } = props
-
-    const arrPhonesElem = phonesArr.map((item) =>
-      <Typography variant="title" className={classes.smallFontSize} key={Date.now()}>
-        {`${item.type}: ${item.number}`}
-      </Typography>
-    )
-
-    return arrPhonesElem
-  }
-
   return (
     <Paper className={classes.root} elevation={10}>
-      <Header firstName={objContact.firstName}
-              lastName={objContact.lastName}
-              id={objContact.id}
-              isFavorite={objContact.favourite}
-              closeThisWindow={closeThisWindow}
-              deleteContact={deleteContact}
-              handlerButtonEdit={handlerButtonEdit}
-              handlerButtonFavorite={handlerButtonFavorite}
+      <Header
+        firstName={objContact.firstName}
+        lastName={objContact.lastName}
+        id={objContact.id}
+        isFavorite={objContact.favourite}
+        closeThisWindow={closeThisWindow}
+        deleteContact={deleteContact}
+        handlerButtonEdit={handlerButtonEdit}
+        handlerButtonFavorite={handlerButtonFavorite}
       />
       <Grid container spacing={16} alignItems="center" className={classes.gridContainer}>
         <Grid item xs={12} className={classes.userInfoTitleContainer}>
@@ -87,7 +61,7 @@ function WindowContactViewing(props) {
           <Phone className={classes.icons} />
         </Grid>
         <Grid item xs={10}>
-          {getNumberPhone(objContact.phones)}
+          {getNumberPhone(objContact.phones, classes.smallFontSize)}
         </Grid>
         <Grid item xs={2} className={classes.iconsContainer}>
           <DateRange className={classes.icons} />
@@ -102,7 +76,7 @@ function WindowContactViewing(props) {
         </Grid>
         <Grid item xs={10}>
           <Typography className={classes.headerTitle} variant="title">
-            {objContact.group}
+            {getTypeGroup(objContact.group)}
           </Typography>
         </Grid>
         <Grid item xs={2} className={classes.iconsContainer}>
@@ -119,10 +93,10 @@ function WindowContactViewing(props) {
 }
 
 WindowContactViewing.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 }
 
 export default connect((state) => ({
   contacts: state.contacts,
   idContact: state.viewableContact
-}))(withStyles(styles)(WindowContactViewing))
+}), { setViewableContact })(withStyles(styles)(WindowContactViewing))

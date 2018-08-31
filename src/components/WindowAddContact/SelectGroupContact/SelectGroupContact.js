@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import Buttons from '../Buttons/Buttons'
+import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { styles } from './styles'
 
@@ -18,7 +18,12 @@ function SelectGroupContact(props) {
 
   const getListGroups = function () {
     return groupsList.map((item) => (
-      <MenuItem value={item.name} key={item.id}>{item.name}</MenuItem>
+      <MenuItem
+        value={item.name}
+        key={item.id}
+      >
+        {item.name}
+      </MenuItem>
     ))
   }
 
@@ -52,6 +57,5 @@ SelectGroupContact.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default connect((state) => ({
-                        groupsList: state.groups
-                      }))(withStyles(styles)(SelectGroupContact))
+export default connect((state) => (
+  { groupsList: state.groups }))(withStyles(styles)(SelectGroupContact))
